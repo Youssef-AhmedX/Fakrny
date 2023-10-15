@@ -11,7 +11,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Language> Languages { get; set; }
     public DbSet<Library> Libraries { get; set; }
     public DbSet<Package> Packages { get; set; }
-    public DbSet<Language> ReferenceLinks { get; set; }
+    public DbSet<ReferenceLink> ReferenceLinks { get; set; }
     public DbSet<Section> Sections { get; set; }
     public DbSet<Topic> Topics { get; set; }
     public DbSet<Video> Videos { get; set; }

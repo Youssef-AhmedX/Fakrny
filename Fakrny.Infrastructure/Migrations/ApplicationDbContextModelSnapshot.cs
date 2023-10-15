@@ -107,7 +107,7 @@ namespace Fakrny.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Authors");
+                    b.ToTable("Authors", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.Course", b =>
@@ -139,7 +139,7 @@ namespace Fakrny.Infrastructure.Migrations
                     b.HasIndex("Name", "AuthorId")
                         .IsUnique();
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.Language", b =>
@@ -162,7 +162,7 @@ namespace Fakrny.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Languages");
+                    b.ToTable("Languages", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.Library", b =>
@@ -185,7 +185,7 @@ namespace Fakrny.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Libraries");
+                    b.ToTable("Libraries", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.Package", b =>
@@ -208,7 +208,7 @@ namespace Fakrny.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Packages");
+                    b.ToTable("Packages", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.ReferenceLink", b =>
@@ -231,7 +231,7 @@ namespace Fakrny.Infrastructure.Migrations
                     b.HasIndex("Link")
                         .IsUnique();
 
-                    b.ToTable("ReferenceLinks");
+                    b.ToTable("ReferenceLinks", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.Section", b =>
@@ -270,7 +270,7 @@ namespace Fakrny.Infrastructure.Migrations
                     b.HasIndex("Name", "CourseId")
                         .IsUnique();
 
-                    b.ToTable("Sections");
+                    b.ToTable("Sections", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.Topic", b =>
@@ -293,7 +293,7 @@ namespace Fakrny.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Topics");
+                    b.ToTable("Topics", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.Video", b =>
@@ -335,7 +335,7 @@ namespace Fakrny.Infrastructure.Migrations
                     b.HasIndex("Name", "SectionId")
                         .IsUnique();
 
-                    b.ToTable("Videos");
+                    b.ToTable("Videos", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.VideoLanguage", b =>
@@ -350,7 +350,7 @@ namespace Fakrny.Infrastructure.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("VideoLanguages");
+                    b.ToTable("VideoLanguages", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.VideoLibrary", b =>
@@ -365,7 +365,7 @@ namespace Fakrny.Infrastructure.Migrations
 
                     b.HasIndex("LibraryId");
 
-                    b.ToTable("VideoLibraries");
+                    b.ToTable("VideoLibraries", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.VideoPackage", b =>
@@ -380,7 +380,7 @@ namespace Fakrny.Infrastructure.Migrations
 
                     b.HasIndex("PackageId");
 
-                    b.ToTable("VideoPackages");
+                    b.ToTable("VideoPackages", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.VideoReferenceLink", b =>
@@ -395,7 +395,7 @@ namespace Fakrny.Infrastructure.Migrations
 
                     b.HasIndex("ReferenceLinkId");
 
-                    b.ToTable("VideoReferenceLinks");
+                    b.ToTable("VideoReferenceLinks", (string)null);
                 });
 
             modelBuilder.Entity("Fakrny.Domain.Entities.VideoTopic", b =>
@@ -410,7 +410,7 @@ namespace Fakrny.Infrastructure.Migrations
 
                     b.HasIndex("TopicId");
 
-                    b.ToTable("VideoTopics");
+                    b.ToTable("VideoTopics", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
