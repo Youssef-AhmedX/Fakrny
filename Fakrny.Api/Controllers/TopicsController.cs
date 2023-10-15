@@ -1,8 +1,4 @@
-﻿using Fakrny.Application.Interfaces.Services;
-using Fakrny.Domain.Dtos;
-using Fakrny.Domain.Entities;
-
-namespace Fakrny.Api.Controllers;
+﻿namespace Fakrny.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
