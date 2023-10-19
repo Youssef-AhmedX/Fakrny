@@ -1,4 +1,5 @@
 ﻿global using Fakrny.Application.Interfaces;
+global using Fakrny.Application.Interfaces.Repositories;
 global using Fakrny.Application.Interfaces.Services;
 global using Fakrny.Domain.Entities;
 global using Fakrny.Infrastructure.Implementations;

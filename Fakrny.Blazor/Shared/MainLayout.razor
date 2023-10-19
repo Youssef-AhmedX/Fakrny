@@ -1,0 +1,67 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Style="background-color:#1e1e2d" Elevation="0">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudSpacer />
+        <MudMenu ActivationEvent="@MouseEvent.MouseOver" AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight">
+            <ActivatorContent>
+                <MudAvatar Size="Size.Medium" Rounded="true">
+                    <MudImage Src="/Images/avatar.png"></MudImage>
+                </MudAvatar>
+            </ActivatorContent>
+            <ChildContent>
+                <MudNavMenu Color="Color.Info" Margin="Margin.Dense" Rounded="true" Class="pa-2">
+                    <MudCard Outlined="true" Style="border:0px">
+                        <MudCardHeader Style="padding:0px">
+                            <CardHeaderAvatar>
+                                <MudAvatar Rounded="true" Size="Size.Large">
+                                    <MudImage Src="/Images/avatar.png"></MudImage>
+                                </MudAvatar>
+                            </CardHeaderAvatar>
+                            <CardHeaderContent>
+                                <MudText Style="padding-left:0 !important" Color="Color.Primary" Typo="Typo.h6" Class="px-4">Admin Fakrny</MudText>
+                                <MudText Style="padding-left:0 !important" Typo="Typo.body2" Class="px-4 mud-text-secondary">Admin@Fakrny.com</MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                    </MudCard>
+                    <MudDivider Class="my-2" />
+                    <MudNavLink Match="NavLinkMatch.Prefix" Href="/Profile" Icon="@Icons.Material.Filled.Person">Profile</MudNavLink>
+                    <MudNavLink Match="NavLinkMatch.Prefix" Href="/AcountSettings" Icon="@Icons.Material.Filled.Settings">Account Settings</MudNavLink>
+                    <MudNavLink Match="NavLinkMatch.Prefix" Href="#" Icon="@Icons.Material.Filled.Logout">Logout</MudNavLink>
+                </MudNavMenu>
+            </ChildContent>
+        </MudMenu>
+
+    </MudAppBar>
+    <MudDrawer Style="background-color:#fff" @bind-Open="_drawerOpen" Elevation="1" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true">
+        @if (_drawerOpen)
+        {
+            <MudDrawerHeader>
+                <MudImage Src="/Images/fakrny.png" Width="160" ObjectFit="ObjectFit.Contain" Alt="Swedish Farm House" Class="rounded-lg ma-4" />
+            </MudDrawerHeader>
+        }
+        <NavMenu IsClosed="!_drawerOpen" />
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer Class="my-5" MaxWidth="MaxWidth.ExtraLarge">
+            @Body
+            <MudScrollToTop>
+                <MudFab Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.ArrowUpward" />
+            </MudScrollToTop>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = false;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}

@@ -1,0 +1,8 @@
+﻿<MudNavMenu Color="Color.Info" Margin="Margin.Dense" Rounded="true" Class="@(IsClosed ? string.Empty : "pa-2")">
+    <MudNavLink  Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+    <MudNavLink Href="Authors" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Person">Authors</MudNavLink>
+</MudNavMenu>
+
+@code {
+    [Parameter][EditorRequired] public bool IsClosed { get; set; }
+}

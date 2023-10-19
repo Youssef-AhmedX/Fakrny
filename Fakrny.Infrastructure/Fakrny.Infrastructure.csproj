@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Fakrny.Application\Fakrny.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Implementations\Repositories\" />
-  </ItemGroup>
-
 </Project>

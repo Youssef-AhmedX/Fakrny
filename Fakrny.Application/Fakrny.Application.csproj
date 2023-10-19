@@ -10,8 +10,4 @@
     <ProjectReference Include="..\Fakrny.Domain\Fakrny.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\Repositories\" />
-  </ItemGroup>
-
 </Project>

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fakrny.Api", "Fakrny.Api\Fakrny.Api.csproj", "{11D4669B-8C82-4303-843B-F92AF0443F84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fakrny.Api", "Fakrny.Api\Fakrny.Api.csproj", "{11D4669B-8C82-4303-843B-F92AF0443F84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fakrny.Domain", "Fakrny.Domain\Fakrny.Domain.csproj", "{A5A4E922-B012-4245-B79D-6A4995E5614B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fakrny.Domain", "Fakrny.Domain\Fakrny.Domain.csproj", "{A5A4E922-B012-4245-B79D-6A4995E5614B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fakrny.Application", "Fakrny.Application\Fakrny.Application.csproj", "{75639F44-D0F0-471E-9043-DA4B9D4CF475}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fakrny.Application", "Fakrny.Application\Fakrny.Application.csproj", "{75639F44-D0F0-471E-9043-DA4B9D4CF475}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fakrny.Infrastructure", "Fakrny.Infrastructure\Fakrny.Infrastructure.csproj", "{9A89BD34-B22A-4459-90D4-AF40BFF9BC51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fakrny.Infrastructure", "Fakrny.Infrastructure\Fakrny.Infrastructure.csproj", "{9A89BD34-B22A-4459-90D4-AF40BFF9BC51}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fakrny.Blazor", "Fakrny.Blazor\Fakrny.Blazor.csproj", "{9747EF3A-924D-4633-B056-8C89E187D9E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9A89BD34-B22A-4459-90D4-AF40BFF9BC51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A89BD34-B22A-4459-90D4-AF40BFF9BC51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A89BD34-B22A-4459-90D4-AF40BFF9BC51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9747EF3A-924D-4633-B056-8C89E187D9E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9747EF3A-924D-4633-B056-8C89E187D9E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9747EF3A-924D-4633-B056-8C89E187D9E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9747EF3A-924D-4633-B056-8C89E187D9E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

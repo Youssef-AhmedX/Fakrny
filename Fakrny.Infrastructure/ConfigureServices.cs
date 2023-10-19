@@ -12,7 +12,11 @@ public static class ConfigureServices
         services.AddScoped<IPackageService, PackageService>();
         services.AddScoped<ILibraryService, LibraryService>();
         services.AddScoped<ITopicService, TopicService>();
+        services.AddScoped<IAuthorService, AuthorService>();
         services.AddScoped<IReferenceLinkService, ReferenceLinkService>();
+        services.AddScoped<IVideoService, VideoService>();
+        services.AddScoped<ISectionService, SectionService>();
+        services.AddScoped<ICourseService, CourseService>();
 
         return services;
     }
