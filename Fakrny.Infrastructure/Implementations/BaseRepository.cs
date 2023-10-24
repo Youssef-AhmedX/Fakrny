@@ -1,4 +1,4 @@
-﻿namespace Fakrny.Infrastructure.Implementations.Repositories;
+﻿namespace Fakrny.Infrastructure.Implementations;
 public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
 {
     protected readonly ApplicationDbContext _context;

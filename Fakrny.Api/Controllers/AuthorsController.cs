@@ -56,6 +56,7 @@ public class AuthorsController : ControllerBase
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
         author.Name = authorDto.Name;
+        author.IsDeleted = authorDto.IsDeleted;
 
         _authorService.Update(author);
 

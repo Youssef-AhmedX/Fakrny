@@ -2,7 +2,7 @@
 using Fakrny.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Identity;
 
-namespace Fakrny.Infrastructure;
+namespace Fakrny.Api;
 public static class ConfigureServices
 {
     public static IServiceCollection AddApiServices(this IServiceCollection services)

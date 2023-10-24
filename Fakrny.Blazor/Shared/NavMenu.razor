@@ -1,8 +1,30 @@
 ﻿<MudNavMenu Color="Color.Info" Margin="Margin.Dense" Rounded="true" Class="@(IsClosed ? string.Empty : "pa-2")">
-    <MudNavLink  Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <MudNavLink Href="Authors" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Person">Authors</MudNavLink>
+    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
+    <MudNavLink Href="Courses" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.OndemandVideo">Courses</MudNavLink>
+    @if (IsClosed)
+    {
+        <MudNavLink Href="Authors" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Person">Authors</MudNavLink>
+        <MudNavLink Href="Languages" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Code">Languages</MudNavLink>
+        <MudNavLink Href="Topics" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Newspaper">Topics</MudNavLink>
+        <MudNavLink Href="Packages" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.LibraryBooks">Packages</MudNavLink>
+        <MudNavLink Href="Libraries" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AutoAwesomeMotion">Libraries</MudNavLink>
+        <MudNavLink Href="RefranceLinks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Link">Refrance Links</MudNavLink>
+    }
+    else
+    {
+        <MudNavGroup @bind-Expanded="IsExpanded" Title="Data" Icon="@Icons.Material.Filled.Dataset">
+            <MudNavLink Href="Authors" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Person">Authors</MudNavLink>
+            <MudNavLink Href="Languages" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Code">Languages</MudNavLink>
+            <MudNavLink Href="Topics" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Newspaper">Topics</MudNavLink>
+            <MudNavLink Href="Packages" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.LibraryBooks">Packages</MudNavLink>
+            <MudNavLink Href="Libraries" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.AutoAwesomeMotion">Libraries</MudNavLink>
+            <MudNavLink Href="RefranceLinks" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Link">Refrance Links</MudNavLink>
+        </MudNavGroup>
+    }
 </MudNavMenu>
 
 @code {
     [Parameter][EditorRequired] public bool IsClosed { get; set; }
+
+    private bool IsExpanded = true;
 }

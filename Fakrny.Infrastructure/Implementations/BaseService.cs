@@ -1,4 +1,4 @@
-﻿namespace Fakrny.Infrastructure.Implementations.Services;
+﻿namespace Fakrny.Infrastructure.Implementations;
 public class BaseService<T> : IBaseService<T> where T : class
 {
     protected readonly IUnitOfWork _unitOfWork;

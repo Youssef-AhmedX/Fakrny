@@ -1,4 +1,4 @@
-﻿namespace Fakrny.Domain;
+﻿namespace Fakrny.Domain.Dtos;
 public class LookupDto : BaseDto
 {
     public int Id { get; set; }

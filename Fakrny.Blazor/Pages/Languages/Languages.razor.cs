@@ -1,8 +1,8 @@
-﻿namespace Fakrny.Blazor.Pages.Authors;
+﻿namespace Fakrny.Blazor.Pages.Languages;
 
-public partial class Authors
+public partial class Languages
 {
-    private List<AuthorDto> authors = new();
+    private List<LanguageDto> languages = new();
     private string searchString = string.Empty;
 
     protected override async Task OnInitializedAsync()
@@ -12,10 +12,10 @@ public partial class Authors
         breadcrumbItems.AddRange(new List<BreadcrumbItem>
         {
             new BreadcrumbItem("Home", href: "/", icon: Icons.Material.Filled.Home),
-            new BreadcrumbItem("Authors", href: null, disabled: true, icon: Icons.Material.Filled.Person),
+            new BreadcrumbItem("Languages", href: null, disabled: true, icon: Icons.Material.Filled.Code),
         });
 
-        authors = await GetAllAsync("Authors");
+        languages = await GetAllAsync("Languages");
 
         StopProcessing();
     }
@@ -28,13 +28,13 @@ public partial class Authors
 
         if (isConfirmed)
         {
-            var result = await ChangeStatusAsync($"Authors/ToggleStatus/{id}");
+            var result = await ChangeStatusAsync($"Languages/ToggleStatus/{id}");
 
             if (!result)
                 return;
 
-            var author = authors!.FirstOrDefault(a => a.Id == id);
-            author!.IsDeleted = !author.IsDeleted;
+            var language = languages!.FirstOrDefault(a => a.Id == id);
+            language!.IsDeleted = !language.IsDeleted;
         }
 
         StopProcessing();
@@ -51,12 +51,12 @@ public partial class Authors
             CloseButton = true
         };
 
-        DialogParameters<AuthorForm> formParameters = new()
+        DialogParameters<LanguageForm> formParameters = new()
         {
             { x => x.Id, id }
         };
 
-        var dialog = await DialogService.ShowAsync<AuthorForm>(id == 0 ? "Add Author" : "Edit Author", formParameters, dialogOptions);
+        var dialog = await DialogService.ShowAsync<LanguageForm>(id == 0 ? "Add Language" : "Edit Language", formParameters, dialogOptions);
         var result = await dialog.Result;
 
         if (result.Canceled)
@@ -64,17 +64,17 @@ public partial class Authors
 
         if (id != 0)
         {
-            var author = authors.FirstOrDefault(a => a.Id == id);
-            if (author is not null)
-                authors.Remove(author);
+            var language = languages.FirstOrDefault(a => a.Id == id);
+            if (language is not null)
+                languages.Remove(language);
         }
 
-        authors.Add((AuthorDto)result.Data);
+        languages.Add((LanguageDto)result.Data);
     }
 
-    private bool FilterFunc(AuthorDto element) => ImpFilterFunc(element, searchString);
+    private bool FilterFunc(LanguageDto element) => ImpFilterFunc(element, searchString);
 
-    private bool ImpFilterFunc(AuthorDto element, string searchString)
+    private bool ImpFilterFunc(LanguageDto element, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;

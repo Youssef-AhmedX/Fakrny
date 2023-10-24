@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Fakrny.Blazor.Dtos;
+﻿namespace Fakrny.Blazor.Models.Dtos;
 
 public class AuthorDto : BaseDto
 {
     public int Id { get; set; }
 
+    [Label("Author Name")]
     [Required]
     public string Name { get; set; } = null!;
 

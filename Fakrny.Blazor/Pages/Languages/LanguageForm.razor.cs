@@ -1,20 +1,20 @@
-﻿namespace Fakrny.Blazor.Pages.Authors;
+﻿namespace Fakrny.Blazor.Pages.Languages;
 
-public partial class AuthorForm
+public partial class LanguageForm
 {
     [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
     [Parameter][EditorRequired] public int Id { get; set; }
 
-    private AuthorDto? authorForm;
+    private LanguageDto? languageForm;
 
     protected override async Task OnParametersSetAsync()
     {
         StartProcessing();
 
         if (Id == 0)
-            authorForm = new();
+            languageForm = new();
         else
-            authorForm = await GetByIdAsync($"Authors/{Id}");
+            languageForm = await GetByIdAsync($"Languages/{Id}");
 
         StopProcessing();
     }
@@ -30,15 +30,15 @@ public partial class AuthorForm
         }
 
         bool result;
-        AuthorDto? authorDtoResult;
+        LanguageDto? languageDtoResult;
 
         if (Id == 0)
-            (result, authorDtoResult) = await AddAsync("Authors/Add", authorForm!);
+            (result, languageDtoResult) = await AddAsync("Languages/Add", languageForm!);
         else
-            (result, authorDtoResult) = await UpdateAsync($"Authors/Update/{Id}", authorForm!);
+            (result, languageDtoResult) = await UpdateAsync($"Languages/Update/{Id}", languageForm!);
 
         if (result)
-            MudDialog.Close(DialogResult.Ok(authorDtoResult));
+            MudDialog.Close(DialogResult.Ok(languageDtoResult));
 
         StopProcessing();
     }

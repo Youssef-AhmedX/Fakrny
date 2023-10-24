@@ -1,25 +1,25 @@
-﻿@page "/Authors"
-@inherits BasePage<AuthorDto>
+﻿@page "/Languages"
+@inherits BasePage<LanguageDto>
 
-<PageTitle>Authors</PageTitle>
+<PageTitle>Languages</PageTitle>
 <MudBreadcrumbs Items="breadcrumbItems"></MudBreadcrumbs>
 
 <MudCard Elevation="25">
     <MudCardContent>
         <MudTable Dense="true" Elevation="0" FixedHeader="true" Height="400px"
                   Loading="@(isLoading)" LoadingProgressColor="Color.Info"
-                  Items="authors" Hover="true" SortLabel="Sort By"
-                  Filter="new Func<AuthorDto,bool>(FilterFunc)">
+                  Items="languages" Hover="true" SortLabel="Sort By"
+                  Filter="new Func<LanguageDto,bool>(FilterFunc)">
 
             <ToolBarContent>
-                <MudText Class="me-1" Typo="Typo.h6">Authors</MudText>
+                <MudText Class="me-1" Typo="Typo.h6">Languages</MudText>
                 <MudIconButton OnClick="() => OpenForm()" Color="Color.Success" Icon="@Icons.Material.Filled.Add"></MudIconButton>
                 <MudSpacer />
                 <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
 
             <HeaderContent>
-                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<AuthorDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<LanguageDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
                 <MudTh Style="text-align:center">Status</MudTh>
                 <MudTh Style="text-align:center">Actions</MudTh>
             </HeaderContent>
@@ -35,12 +35,12 @@
                 </MudTd>
                 <MudTd Style="text-align:center" DataLabel="Actions">
                     <MudButtonGroup Size="Size.Small" Color="Color.Info" Variant="Variant.Outlined">
-                        <MudIconButton OnClick="() => OpenForm(context.Id)" Disabled="isDisable" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                        <MudIconButton OnClick="() => OpenForm(context.Id)" Disabled="isDisable" Icon="@Icons.Material.Filled.Edit"/>
                         <MudIconButton Disabled="isDisable"
                                        OnClick="() => ChangeStatus(context.Id,context.Name)"
                                        Icon="@(context.IsDeleted? Icons.Material.Filled.Check : Icons.Material.Outlined.Delete)"
-                                       Color="@(context.IsDeleted? Color.Success : Color.Error)">
-                        </MudIconButton>
+                                       Color="@(context.IsDeleted? Color.Success : Color.Error)"/>
+                        
                     </MudButtonGroup>
                 </MudTd>
             </RowTemplate>

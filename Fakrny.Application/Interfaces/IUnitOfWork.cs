@@ -1,6 +1,4 @@
-﻿using Fakrny.Application.Interfaces.Repositories;
-
-namespace Fakrny.Application.Interfaces;
+﻿namespace Fakrny.Application.Interfaces;
 public interface IUnitOfWork
 {
     int Complete();
