@@ -15,7 +15,7 @@ public class TopicsController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<TopicDto>> GetAll()
     {
-        var topics = _topicService.GetAll();
+        var topics = _topicService.GetAllWithDetails();
 
         var topicsDto = new List<TopicDto>();
 
@@ -84,7 +84,8 @@ public class TopicsController : ControllerBase
         {
             Id = topic.Id,
             Name = topic.Name,
-            IsDeleted = topic.IsDeleted
+            IsDeleted = topic.IsDeleted,
+            VideosCount = topic.Videos.Count,
         };
 
         return topicDto;

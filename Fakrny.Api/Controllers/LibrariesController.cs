@@ -15,7 +15,7 @@ public class LibrariesController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<LibraryDto>> GetAll()
     {
-        var libraries = _libraryService.GetAll();
+        var libraries = _libraryService.GetAllWithDetails();
 
         var librariesDto = new List<LibraryDto>();
 
@@ -84,7 +84,8 @@ public class LibrariesController : ControllerBase
         {
             Id = library.Id,
             Name = library.Name,
-            IsDeleted = library.IsDeleted
+            IsDeleted = library.IsDeleted,
+            VideosCount = library.Videos.Count,
         };
 
         return libraryDto;

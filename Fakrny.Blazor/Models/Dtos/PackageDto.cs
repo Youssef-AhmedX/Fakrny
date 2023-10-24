@@ -6,4 +6,6 @@ public class PackageDto : BaseDto
     [Label("Package Name")]
     [Required]
     public string Name { get; set; } = null!;
+    public int VideosCount { get; set; }
+
 }

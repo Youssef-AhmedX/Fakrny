@@ -6,4 +6,6 @@ public class TopicDto : BaseDto
     [Label("Topic Name")]
     [Required]
     public string Name { get; set; } = null!;
+    public int VideosCount { get; set; }
+
 }

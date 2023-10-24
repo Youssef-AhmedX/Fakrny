@@ -20,12 +20,14 @@
 
             <HeaderContent>
                 <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<LanguageDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
+                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<LanguageDto, object>(x=>x.VideosCount)">Videos Count</MudTableSortLabel></MudTh>
                 <MudTh Style="text-align:center">Status</MudTh>
                 <MudTh Style="text-align:center">Actions</MudTh>
             </HeaderContent>
 
             <RowTemplate>
                 <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd Style="text-align:center" DataLabel="Videos Count">@context.VideosCount</MudTd>
                 <MudTd Style="text-align:center" DataLabel="Status">
                     <MudChip Size="Size.Small"
                              Icon="@(context.IsDeleted? Icons.Material.Filled.Cancel : Icons.Material.Outlined.Check)"

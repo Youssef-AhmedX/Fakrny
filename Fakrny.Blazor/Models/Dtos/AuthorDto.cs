@@ -8,4 +8,9 @@ public class AuthorDto : BaseDto
     [Required]
     public string Name { get; set; } = null!;
 
+    [Label("Author Nickname")]
+    public string? Nickname { get; set; }
+
+    public int CoursesCount { get; set; }
+
 }

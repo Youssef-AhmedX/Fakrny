@@ -15,7 +15,7 @@ public class ReferenceLinksController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<ReferenceLinkDto>> GetAll()
     {
-        var referenceLinks = _referenceLinkService.GetAll();
+        var referenceLinks = _referenceLinkService.GetAllWithDetails();
 
         var referenceLinksDto = new List<ReferenceLinkDto>();
 
@@ -84,7 +84,8 @@ public class ReferenceLinksController : ControllerBase
         {
             Id = referenceLink.Id,
             Link = referenceLink.Link,
-            IsDeleted = referenceLink.IsDeleted
+            IsDeleted = referenceLink.IsDeleted,
+            VideosCount = referenceLink.Videos.Count,
         };
 
         return referenceLinkDto;

@@ -14,6 +14,21 @@ public class AuthorsController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<AuthorDto>> GetAll()
     {
+        var authors = _authorService.GetAllWithDetails();
+
+        var authorsDto = new List<AuthorDto>();
+
+        foreach (var author in authors)
+        {
+            authorsDto.Add(MapToDto(author));
+        }
+
+        return Ok(authorsDto);
+    }
+
+    [HttpGet("GetAllLookup")]
+    public ActionResult<IEnumerable<AuthorDto>> GetAllLookup()
+    {
         var authors = _authorService.GetAll();
 
         var authorsDto = new List<AuthorDto>();
@@ -56,6 +71,7 @@ public class AuthorsController : ControllerBase
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
         author.Name = authorDto.Name;
+        author.Nickname = authorDto.Nickname;
         author.IsDeleted = authorDto.IsDeleted;
 
         _authorService.Update(author);
@@ -84,7 +100,9 @@ public class AuthorsController : ControllerBase
         {
             Id = author.Id,
             Name = author.Name,
-            IsDeleted = author.IsDeleted
+            IsDeleted = author.IsDeleted,
+            CoursesCount = author.Courses.Count,
+            Nickname = author.Nickname,
         };
 
         return authorDto;
@@ -96,6 +114,7 @@ public class AuthorsController : ControllerBase
         {
             Id = authorDto.Id,
             Name = authorDto.Name,
+            Nickname = authorDto.Nickname,
             IsDeleted = authorDto.IsDeleted
         };
 

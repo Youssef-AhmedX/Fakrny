@@ -15,7 +15,7 @@ public class PackagesController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<PackageDto>> GetAll()
     {
-        var packages = _packageService.GetAll();
+        var packages = _packageService.GetAllWithDetails();
 
         var packagesDto = new List<PackageDto>();
 
@@ -84,7 +84,8 @@ public class PackagesController : ControllerBase
         {
             Id = package.Id,
             Name = package.Name,
-            IsDeleted = package.IsDeleted
+            IsDeleted = package.IsDeleted,
+            VideosCount = package.Videos.Count,
         };
 
         return packageDto;

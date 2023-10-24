@@ -1,35 +1,33 @@
-﻿@page "/Authors"
-@inherits BasePage<AuthorDto>
+﻿@page "/Topics"
+@inherits BasePage<TopicDto>
 
-<PageTitle>Authors</PageTitle>
+<PageTitle>Topics</PageTitle>
 <MudBreadcrumbs Items="breadcrumbItems"></MudBreadcrumbs>
 
 <MudCard Elevation="25">
     <MudCardContent>
         <MudTable Dense="true" Elevation="0" FixedHeader="true" Height="400px"
                   Loading="@(isLoading)" LoadingProgressColor="Color.Info"
-                  Items="authors" Hover="true" SortLabel="Sort By"
-                  Filter="new Func<AuthorDto,bool>(FilterFunc)">
+                  Items="topics" Hover="true" SortLabel="Sort By"
+                  Filter="new Func<TopicDto,bool>(FilterFunc)">
 
             <ToolBarContent>
-                <MudText Class="me-1" Typo="Typo.h6">Authors</MudText>
+                <MudText Class="me-1" Typo="Typo.h6">Topics</MudText>
                 <MudIconButton OnClick="() => OpenForm()" Color="Color.Success" Icon="@Icons.Material.Filled.Add"></MudIconButton>
                 <MudSpacer />
                 <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
 
             <HeaderContent>
-                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<AuthorDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
-                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<AuthorDto, object>(x=>x.Nickname)">Nickname</MudTableSortLabel></MudTh>
-                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<AuthorDto, object>(x=>x.CoursesCount)">Courses Count</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<TopicDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
+                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<TopicDto, object>(x=>x.VideosCount)">Videos Count</MudTableSortLabel></MudTh>
                 <MudTh Style="text-align:center">Status</MudTh>
                 <MudTh Style="text-align:center">Actions</MudTh>
             </HeaderContent>
 
             <RowTemplate>
                 <MudTd DataLabel="Name">@context.Name</MudTd>
-                <MudTd Style="text-align:center" DataLabel="Nickname">@context.Nickname</MudTd>
-                <MudTd Style="text-align:center" DataLabel="Courses Count">@context.CoursesCount</MudTd>
+                <MudTd Style="text-align:center" DataLabel="Videos Count">@context.VideosCount</MudTd>
                 <MudTd Style="text-align:center" DataLabel="Status">
                     <MudChip Size="Size.Small"
                              Icon="@(context.IsDeleted? Icons.Material.Filled.Cancel : Icons.Material.Outlined.Check)"
@@ -39,12 +37,12 @@
                 </MudTd>
                 <MudTd Style="text-align:center" DataLabel="Actions">
                     <MudButtonGroup Size="Size.Small" Color="Color.Info" Variant="Variant.Outlined">
-                        <MudIconButton OnClick="() => OpenForm(context.Id)" Disabled="isDisable" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
+                        <MudIconButton OnClick="() => OpenForm(context.Id)" Disabled="isDisable" Icon="@Icons.Material.Filled.Edit"/>
                         <MudIconButton Disabled="isDisable"
                                        OnClick="() => ChangeStatus(context.Id,context.Name)"
                                        Icon="@(context.IsDeleted? Icons.Material.Filled.Check : Icons.Material.Outlined.Delete)"
-                                       Color="@(context.IsDeleted? Color.Success : Color.Error)">
-                        </MudIconButton>
+                                       Color="@(context.IsDeleted? Color.Success : Color.Error)"/>
+                        
                     </MudButtonGroup>
                 </MudTd>
             </RowTemplate>

@@ -1,4 +1,6 @@
-﻿namespace Fakrny.Infrastructure.Implementations;
+﻿using Microsoft.Extensions.Logging;
+
+namespace Fakrny.Infrastructure.Implementations;
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -20,6 +22,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<VideoPackage> VideoPackages { get; set; }
     public DbSet<VideoReferenceLink> VideoReferenceLinks { get; set; }
     public DbSet<VideoTopic> VideoTopics { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        // Add a logger to log queries
+        optionsBuilder.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()));
+    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

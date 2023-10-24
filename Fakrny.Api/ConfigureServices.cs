@@ -1,5 +1,4 @@
-﻿using Fakrny.Domain.Entities;
-using Fakrny.Infrastructure.Implementations;
+﻿using Fakrny.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Identity;
 
 namespace Fakrny.Api;

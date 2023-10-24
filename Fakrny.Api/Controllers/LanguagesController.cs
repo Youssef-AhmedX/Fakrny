@@ -15,7 +15,7 @@ public class LanguagesController : ControllerBase
     [HttpGet]
     public ActionResult<IEnumerable<LanguageDto>> GetAll()
     {
-        var languages = _languageService.GetAll();
+        var languages = _languageService.GetAllWithDetails();
 
         var languagesDto = new List<LanguageDto>();
 
@@ -84,7 +84,8 @@ public class LanguagesController : ControllerBase
         {
             Id = language.Id,
             Name = language.Name,
-            IsDeleted = language.IsDeleted
+            IsDeleted = language.IsDeleted,
+            VideosCount = language.Videos.Count,
         };
 
         return languageDto;

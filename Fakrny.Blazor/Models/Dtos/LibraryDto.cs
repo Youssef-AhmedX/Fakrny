@@ -6,4 +6,6 @@ public class LibraryDto : BaseDto
     [Label("Library Name")]
     [Required]
     public string Name { get; set; } = null!;
+    public int VideosCount { get; set; }
+
 }

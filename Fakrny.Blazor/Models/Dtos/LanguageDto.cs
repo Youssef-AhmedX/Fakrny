@@ -6,4 +6,6 @@ public class LanguageDto : BaseDto
     [Label("Language Name")]
     [Required]
     public string Name { get; set; } = null!;
+    public int VideosCount { get; set; }
+
 }

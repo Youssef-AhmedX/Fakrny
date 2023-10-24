@@ -1,8 +1,8 @@
-﻿@inherits BasePage<AuthorDto>
+﻿@inherits BasePage<TopicDto>
 
 <MudDialog>
     <DialogContent>
-        @if (authorForm is null)
+        @if (topicForm is null)
         {
             <MudCard Outlined="true" Style="border:0px;text-align:center">
                 <MudCardContent>
@@ -15,14 +15,13 @@
         else
         {
             <MudCard Style="border:0px;" Outlined="true">
-                <EditForm Model="@authorForm" OnValidSubmit="OnValidSubmit">
+                <EditForm Model="@topicForm" OnValidSubmit="OnValidSubmit">
                     <DataAnnotationsValidator />
                     <MudCardContent Style="padding-top: 0px">
-                        <MudTextField Class="mb-5" @bind-Value="authorForm.Name" For="@(() => authorForm.Name)" />
-                        <MudTextField Class="mb-5" @bind-Value="authorForm.Nickname" For="@(() => authorForm.Nickname)" />
+                        <MudTextField @bind-Value="topicForm.Name" For="@(() => topicForm.Name)" />
                     </MudCardContent>
                     <MudCardActions>
-                        <MudCheckBox Dense="true" @bind-Checked="@authorForm.IsDeleted" For="@(() => authorForm.IsDeleted)" Label="Mark As Deleted" Color="Color.Error"></MudCheckBox>
+                        <MudCheckBox Dense="true" @bind-Checked="@topicForm.IsDeleted" For="@(() => topicForm.IsDeleted)" Label="Mark As Deleted" Color="Color.Error"></MudCheckBox>
                         <MudSpacer />
                         <MudButton Class="me-1" Variant="Variant.Outlined" OnClick="Cancel">Cancel</MudButton>
                         <MudButton Variant="isDisable ? Variant.Text : Variant.Outlined" ButtonType="ButtonType.Submit" Disabled="isDisable" Color="Color.Success">

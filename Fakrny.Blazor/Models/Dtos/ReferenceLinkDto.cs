@@ -6,4 +6,10 @@ public class ReferenceLinkDto : BaseDto
     [Label("Link")]
     [Required]
     public string Link { get; set; } = null!;
+
+    [Label("Website Name")]
+    [Required]
+    public string WebsiteName { get; set; } = null!;
+    public int VideosCount { get; set; }
+
 }
