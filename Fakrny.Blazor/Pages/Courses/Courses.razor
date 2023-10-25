@@ -1,33 +1,35 @@
-﻿@page "/ReferenceLinks"
-@inherits BasePage<ReferenceLinkDto>
+﻿@page "/Courses"
+@inherits BasePage<CourseDto>
 
-<PageTitle>Reference Links</PageTitle>
+<PageTitle>Courses</PageTitle>
 <MudBreadcrumbs Items="breadcrumbItems"></MudBreadcrumbs>
 
 <MudCard Elevation="25">
     <MudCardContent>
         <MudTable Dense="true" Elevation="0" FixedHeader="true" Height="400px"
                   Loading="@(isLoading)" LoadingProgressColor="Color.Info"
-                  Items="referenceLinks" Hover="true" SortLabel="Sort By"
-                  Filter="new Func<ReferenceLinkDto,bool>(FilterFunc)">
+                  Items="courses" Hover="true" SortLabel="Sort By"
+                  Filter="new Func<CourseDto,bool>(FilterFunc)">
 
             <ToolBarContent>
-                <MudText Class="me-1" Typo="Typo.h6">Reference Links</MudText>
+                <MudText Class="me-1" Typo="Typo.h6">Courses</MudText>
                 <MudIconButton OnClick="() => OpenForm()" Color="Color.Success" Icon="@Icons.Material.Filled.Add"></MudIconButton>
                 <MudSpacer />
                 <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
 
             <HeaderContent>
-                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ReferenceLinkDto, object>(x=>x.Link)">Link</MudTableSortLabel></MudTh>
-                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<ReferenceLinkDto, object>(x=>x.VideosCount)">Videos Count</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<CourseDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
+                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<CourseDto, object>(x=>x.Author.Name)">Author</MudTableSortLabel></MudTh>
+                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<CourseDto, object>(x=>x.Duration)">Duration</MudTableSortLabel></MudTh>
                 <MudTh Style="text-align:center">Status</MudTh>
                 <MudTh Style="text-align:center">Actions</MudTh>
             </HeaderContent>
 
             <RowTemplate>
-                <MudTd DataLabel="Link"><MudLink Href="@context.Link">@context.WebsiteName</MudLink></MudTd>
-                <MudTd Style="text-align:center" DataLabel="Videos Count">@context.VideosCount</MudTd>
+                <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd Style="text-align:center" DataLabel="Author">@context.Author.Name</MudTd>
+                <MudTd Style="text-align:center" DataLabel="Duration">@context.Duration</MudTd>
                 <MudTd Style="text-align:center" DataLabel="Status">
                     <MudChip Size="Size.Small"
                              Icon="@(context.IsDeleted? Icons.Material.Filled.Cancel : Icons.Material.Outlined.Check)"
@@ -39,14 +41,13 @@
                     <MudButtonGroup Size="Size.Small" Color="Color.Info" Variant="Variant.Outlined">
                         <MudIconButton OnClick="() => OpenForm(context.Id)" Disabled="isDisable" Icon="@Icons.Material.Filled.Edit"/>
                         <MudIconButton Disabled="isDisable"
-                                       OnClick="() => ChangeStatus(context.Id,context.Link)"
-                                       Icon="@(context.IsDeleted? Icons.Material.Filled.Check : Icons.Material.Outlined.Delete)"
+                                       OnClick="() => ChangeStatus(context.Id,context.Name)"
+                                       Icon="@(context.IsDeleted? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Cancel)"
                                        Color="@(context.IsDeleted? Color.Success : Color.Error)"/>
-                        
+                        <MudIconButton OnClick="() => OpenForm(context.Id)" Disabled="isDisable" Icon="@Icons.Material.Filled.Info" />
                     </MudButtonGroup>
                 </MudTd>
             </RowTemplate>
-
             <PagerContent>
                 <MudTablePager HorizontalAlignment="HorizontalAlignment.Center" InfoFormat="{first_item}-{last_item} of {all_items}" PageSizeOptions="new int[]{25, 50, 100,int.MaxValue}" />
             </PagerContent>

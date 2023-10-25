@@ -12,7 +12,7 @@ public class CoursesController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<CourseGetDto>> GetAll(bool IsGetLookup = false)
+    public ActionResult<IEnumerable<CourseGetDto>> GetAllWithDetails()
     {
         var courses = _courseService.GetAllWithDetails();
 
@@ -30,16 +30,15 @@ public class CoursesController : ControllerBase
                     Name = course.Author!.Name,
                 },
                 IsDeleted = course.IsDeleted,
-                SectionsCount = course.Sections.Count,
-                VideosCount = course.Sections.Select(s => s.Videos).Count(),
+                Duration = course.Sections.Select(s => s.Videos.Sum(v => v.DurationInMin)).Sum(),
             });
         }
 
         return Ok(coursesDto);
     }
 
-    [HttpGet("{id}")]
-    public ActionResult<CourseGetDetailsDto> GetById(int id)
+    [HttpGet("WithDetails/{id}")]
+    public ActionResult<CourseGetDetailsDto> GetByIdWithDetails(int id)
     {
         var course = _courseService.GetByIdWithDetails(id);
 
@@ -58,6 +57,26 @@ public class CoursesController : ControllerBase
                 Name = course.Author!.Name,
             },
             Sections = course.Sections.Select(s => new LookupDto { Id = s.Id, Name = s.Name })
+        };
+
+        return Ok(CourseDto);
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<CoursePostDto> GetById(int id)
+    {
+        var course = _courseService.GetById(id);
+
+        if (course is null)
+            return BadRequest($"Can not find {_entityName} with Id equal {id}");
+
+        var CourseDto = new CoursePostDto
+        {
+            Id = course.Id,
+            Name = course.Name,
+            Description = course.Description,
+            AuthorId = course.AuthorId,
+            IsDeleted = course.IsDeleted,
         };
 
         return Ok(CourseDto);
@@ -82,6 +101,9 @@ public class CoursesController : ControllerBase
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
         course.Name = courseDto.Name;
+        course.Description = courseDto.Description;
+        course.AuthorId = courseDto.AuthorId;
+        course.IsDeleted = courseDto.IsDeleted;
 
         _courseService.Update(course);
 

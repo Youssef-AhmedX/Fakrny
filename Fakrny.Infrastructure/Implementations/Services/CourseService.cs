@@ -17,8 +17,7 @@ public class CourseService : BaseService<Course>, ICourseService
                 Author = new Author { Id = c.Author!.Id, Name = c.Author!.Name },
                 IsDeleted = c.IsDeleted,
                 Sections = c.Sections.Select(s => new Section { Id = s.Id }).ToList()
-            })
-            .AsNoTracking().FirstOrDefault(c => c.Id == id);
+            }).AsNoTracking().FirstOrDefault(c => c.Id == id);
     }
 
     public IEnumerable<Course> GetAllWithDetails()
@@ -34,9 +33,8 @@ public class CourseService : BaseService<Course>, ICourseService
                 Sections = c.Sections.Select(s => new Section
                 {
                     Id = s.Id,
-                    Videos = s.Videos.Select(v => new Video { Id = v.Id }).ToList()
+                    Videos = s.Videos.Select(v => new Video { DurationInMin = v.DurationInMin }).ToList()
                 }).ToList()
-            })
-            .AsNoTracking().ToList();
+            }).AsNoTracking().ToList();
     }
 }

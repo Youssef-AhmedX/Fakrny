@@ -6,6 +6,7 @@ public static class ConfigureServices
         services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
+        //services.AddTransient(typeof(IBaseRepository<>), typeof(BaseRepository<>));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddScoped<ILanguageService, LanguageService>();

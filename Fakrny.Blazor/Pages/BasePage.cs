@@ -21,6 +21,19 @@ public class BasePage<T> : ComponentBase where T : class
         return response.ObjectsList!;
     }
 
+    protected async Task<List<TItem>> GetAllLookupsAsync<TItem>(string endPoint) where TItem : class
+    {
+        var response = await ApiService.GetAllAsync<TItem>(endPoint);
+
+        if (!response.IsSuccess)
+        {
+            ShowError(response.Error!);
+            return new();
+        }
+
+        return response.ObjectsList!;
+    }
+
     protected async Task<T> GetByIdAsync(string endPoint)
     {
         var response = await ApiService.GetByIdAsync<T>(endPoint);
@@ -42,7 +55,7 @@ public class BasePage<T> : ComponentBase where T : class
         }
 
         ShowSuccess("Added Successfully");
-        return (true, response.Object);
+        return (true, response.Object!);
     }
 
     protected async Task<(bool, T?)> UpdateAsync(string endPoint, T model)
@@ -56,7 +69,7 @@ public class BasePage<T> : ComponentBase where T : class
         }
 
         ShowSuccess("Updated Successfully");
-        return (true, response.Object);
+        return (true, response.Object!);
     }
 
     protected async Task<bool> ChangeStatusAsync(string endPoint)

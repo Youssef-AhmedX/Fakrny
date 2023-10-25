@@ -27,15 +27,20 @@ public class AuthorsController : ControllerBase
     }
 
     [HttpGet("GetAllLookup")]
-    public ActionResult<IEnumerable<AuthorDto>> GetAllLookup()
+    public ActionResult<IEnumerable<LookupDto>> GetAllLookup()
     {
         var authors = _authorService.GetAll();
 
-        var authorsDto = new List<AuthorDto>();
+        var authorsDto = new List<LookupDto>();
 
         foreach (var author in authors)
         {
-            authorsDto.Add(MapToDto(author));
+            authorsDto.Add(new LookupDto
+            {
+                Id = author.Id,
+                Name = author.Name,
+                IsDeleted = author.IsDeleted
+            });
         }
 
         return Ok(authorsDto);

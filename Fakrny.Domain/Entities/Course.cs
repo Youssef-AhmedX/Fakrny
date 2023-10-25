@@ -6,6 +6,7 @@ public class Course : BaseEntity
     public int Id { get; set; }
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
+    public bool IsPaid { get; set; }
 
     public int AuthorId { get; set; }
     public Author? Author { get; set; }

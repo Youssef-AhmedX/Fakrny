@@ -1,0 +1,52 @@
+﻿@inherits BasePage<CoursePostDto>
+
+<MudDialog>
+    <DialogContent>
+        @if (courseForm is null)
+        {
+            <MudCard Outlined="true" Style="border:0px;text-align:center">
+                <MudCardContent>
+                    <MudProgressCircular Color="Color.Info" Style="height:70px;width:70px;" Indeterminate="true" />
+                </MudCardContent>
+                <MudCardActions>
+                </MudCardActions>
+            </MudCard>
+        }
+        else
+        {
+            <MudCard Style="border:0px;" Outlined="true">
+                <EditForm Model="@courseForm" OnValidSubmit="OnValidSubmit">
+                    <DataAnnotationsValidator />
+                    <MudCardContent Style="padding-top: 0px">
+                        <MudTextField Class="mb-5" HelperText="Required" Variant="Variant.Outlined" @bind-Value="courseForm.Name" For="@(() => courseForm.Name)" />
+                        <MudTextField Class="mb-5" HelperText="Required" Variant="Variant.Outlined" Lines="5" @bind-Value="courseForm.Description" For="@(() => courseForm.Description)" />
+                        <MudSelect Class="mb-5" HelperText="Required" Variant="Variant.Outlined" @bind-Value="courseForm.AuthorId" For="@(() => courseForm.AuthorId)"
+                               Placeholder="Please Select Author" AdornmentIcon="@Icons.Material.Filled.Person" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter" T="int?">
+                            @foreach (var author in authors)
+                            {
+                                <MudSelectItem Value="@(author.Id)" Disabled="author.IsDeleted">@author.Name @(author.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudCheckBox Dense="true" @bind-Checked="@courseForm.IsDeleted" For="@(() => courseForm.IsDeleted)" Label="Mark As Deleted" Color="Color.Error"></MudCheckBox>
+                        <MudSpacer />
+                        <MudButton Class="me-1" Variant="Variant.Outlined" OnClick="Cancel">Cancel</MudButton>
+                        <MudButton Variant="isDisable ? Variant.Text : Variant.Outlined" ButtonType="ButtonType.Submit" Disabled="isDisable" Color="Color.Success">
+                            @if (isDisable)
+                            {
+                                <MudProgressCircular Color="Color.Success" Size="Size.Small" Indeterminate="true" />
+                            }
+                            else
+                            {
+                                <MudText>Submit</MudText>
+                            }
+                        </MudButton>
+                    </MudCardActions>
+                </EditForm>
+            </MudCard>
+        }
+    </DialogContent>
+    <DialogActions>
+    </DialogActions>
+</MudDialog>

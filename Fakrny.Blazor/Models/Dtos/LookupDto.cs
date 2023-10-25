@@ -1,6 +1,6 @@
-﻿namespace Fakrny.Domain.Dtos;
+﻿namespace Fakrny.Blazor.Models.Dtos;
 public class LookupDto : BaseDto
 {
-    public int Id { get; set; }
+    public int? Id { get; set; }
     public string Name { get; set; } = null!;
 }

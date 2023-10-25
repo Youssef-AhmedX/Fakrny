@@ -8,7 +8,7 @@ public class Video : BaseEntity
     public string Number { get; set; } = null!;
     public string Description { get; set; } = null!;
     public int DurationInMin { get; set; }
-    public int OrderIndex { get; set; }
+    public int? OrderIndex { get; set; }
 
     public int SectionId { get; set; }
     public Section? Section { get; set; }
