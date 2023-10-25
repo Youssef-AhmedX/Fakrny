@@ -19,24 +19,4 @@ public class UnitOfWork : IUnitOfWork
 
         return repository;
     }
-
-    public ISectionRepository SectionRepository()
-    {
-        var repository = new SectionRepository(_context);
-
-        return repository;
-    }
-    public IVideoRepository VideoRepository()
-    {
-        var repository = new VideoRepository(_context);
-
-        return repository;
-    }
-    public ICourseRepository CourseRepository()
-    {
-        var repository = new CourseRepository(_context);
-
-        return repository;
-    }
-
 }

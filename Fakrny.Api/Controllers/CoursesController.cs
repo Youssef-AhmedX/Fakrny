@@ -12,33 +12,59 @@ public class CoursesController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<CourseDto>> GetAll(bool IsGetLookup = false)
+    public ActionResult<IEnumerable<CourseGetDto>> GetAll(bool IsGetLookup = false)
     {
-        var courses = _courseService.GetAll();
+        var courses = _courseService.GetAllWithDetails();
 
-        var coursesDto = new List<CourseDto>();
+        var coursesDto = new List<CourseGetDto>();
 
         foreach (var course in courses)
         {
-            coursesDto.Add(MapToDto(course));
+            coursesDto.Add(new CourseGetDto
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Author = new LookupDto
+                {
+                    Id = course.AuthorId,
+                    Name = course.Author!.Name,
+                },
+                IsDeleted = course.IsDeleted,
+                SectionsCount = course.Sections.Count,
+                VideosCount = course.Sections.Select(s => s.Videos).Count(),
+            });
         }
 
         return Ok(coursesDto);
     }
 
     [HttpGet("{id}")]
-    public ActionResult<CourseDto> GetById(int id, bool IsGetLookup = false)
+    public ActionResult<CourseGetDetailsDto> GetById(int id)
     {
-        var course = _courseService.GetById(id);
+        var course = _courseService.GetByIdWithDetails(id);
 
         if (course is null)
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
-        return Ok(MapToDto(course));
+        var CourseDto = new CourseGetDetailsDto
+        {
+            Id = course.Id,
+            Name = course.Name,
+            Description = course.Description,
+            IsDeleted = course.IsDeleted,
+            Author = new LookupDto
+            {
+                Id = course.AuthorId,
+                Name = course.Author!.Name,
+            },
+            Sections = course.Sections.Select(s => new LookupDto { Id = s.Id, Name = s.Name })
+        };
+
+        return Ok(CourseDto);
     }
 
     [HttpPost("Add")]
-    public ActionResult<CourseDto> Add(CourseDto courseDto)
+    public ActionResult<CoursePostDto> Add(CoursePostDto courseDto)
     {
         var course = MapToEntity(courseDto);
 
@@ -48,7 +74,7 @@ public class CoursesController : ControllerBase
     }
 
     [HttpPut("Update/{id}")]
-    public ActionResult<CourseDto> Update(CourseDto courseDto, int id)
+    public ActionResult<CoursePostDto> Update(CoursePostDto courseDto, int id)
     {
         var course = _courseService.GetById(id);
 
@@ -77,24 +103,28 @@ public class CoursesController : ControllerBase
         return Ok($"Status Toggled Successfully for {_entityName} with Id equal {course.Id}");
     }
 
-    private CourseDto MapToDto(Course course)
+    private CoursePostDto MapToDto(Course course)
     {
-        var courseDto = new CourseDto
+        var courseDto = new CoursePostDto
         {
             Id = course.Id,
             Name = course.Name,
+            Description = course.Description,
+            AuthorId = course.AuthorId,
             IsDeleted = course.IsDeleted
         };
 
         return courseDto;
     }
 
-    private Course MapToEntity(CourseDto courseDto)
+    private Course MapToEntity(CoursePostDto courseDto)
     {
         var course = new Course
         {
             Id = courseDto.Id,
             Name = courseDto.Name,
+            Description = courseDto.Description,
+            AuthorId = courseDto.AuthorId,
             IsDeleted = courseDto.IsDeleted
         };
 
