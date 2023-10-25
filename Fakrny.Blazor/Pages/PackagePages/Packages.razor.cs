@@ -1,4 +1,4 @@
-﻿namespace Fakrny.Blazor.Pages.Packages;
+﻿namespace Fakrny.Blazor.Pages.PackagePages;
 
 public partial class Packages
 {
