@@ -57,6 +57,7 @@ public class PackagesController : ControllerBase
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
         package.Name = packageDto.Name;
+        package.IsDeleted = packageDto.IsDeleted;
 
         _packageService.Update(package);
 

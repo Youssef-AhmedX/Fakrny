@@ -57,6 +57,8 @@ public class ReferenceLinksController : ControllerBase
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
         referenceLink.Link = referenceLinkDto.Link;
+        referenceLink.WebsiteName = referenceLinkDto.WebsiteName;
+        referenceLink.IsDeleted = referenceLinkDto.IsDeleted;
 
         _referenceLinkService.Update(referenceLink);
 
@@ -84,6 +86,7 @@ public class ReferenceLinksController : ControllerBase
         {
             Id = referenceLink.Id,
             Link = referenceLink.Link,
+            WebsiteName = referenceLink.WebsiteName,
             IsDeleted = referenceLink.IsDeleted,
             VideosCount = referenceLink.Videos.Count,
         };
@@ -97,6 +100,7 @@ public class ReferenceLinksController : ControllerBase
         {
             Id = referenceLinkDto.Id,
             Link = referenceLinkDto.Link,
+            WebsiteName = referenceLinkDto.WebsiteName,
             IsDeleted = referenceLinkDto.IsDeleted
         };
 

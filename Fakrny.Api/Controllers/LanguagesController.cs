@@ -57,6 +57,7 @@ public class LanguagesController : ControllerBase
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
         language.Name = languageDto.Name;
+        language.IsDeleted = languageDto.IsDeleted;
 
         _languageService.Update(language);
 

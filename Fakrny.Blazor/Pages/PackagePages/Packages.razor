@@ -1,32 +1,32 @@
-﻿@page "/ReferenceLinks"
-@inherits BasePage<ReferenceLinkDto>
+﻿@page "/Packages"
+@inherits BasePage<PackageDto>
 
-<PageTitle>ReferenceLinks</PageTitle>
+<PageTitle>Packages</PageTitle>
 <MudBreadcrumbs Items="breadcrumbItems"></MudBreadcrumbs>
 
 <MudCard Elevation="25">
     <MudCardContent>
         <MudTable Dense="true" Elevation="0" FixedHeader="true" Height="400px"
                   Loading="@(isLoading)" LoadingProgressColor="Color.Info"
-                  Items="referenceLinks" Hover="true" SortLabel="Sort By"
-                  Filter="new Func<ReferenceLinkDto,bool>(FilterFunc)">
+                  Items="packages" Hover="true" SortLabel="Sort By"
+                  Filter="new Func<PackageDto,bool>(FilterFunc)">
 
             <ToolBarContent>
-                <MudText Class="me-1" Typo="Typo.h6">ReferenceLinks</MudText>
+                <MudText Class="me-1" Typo="Typo.h6">Packages</MudText>
                 <MudIconButton OnClick="() => OpenForm()" Color="Color.Success" Icon="@Icons.Material.Filled.Add"></MudIconButton>
                 <MudSpacer />
                 <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
 
             <HeaderContent>
-                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<ReferenceLinkDto, object>(x=>x.Link)">Link</MudTableSortLabel></MudTh>
-                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<ReferenceLinkDto, object>(x=>x.VideosCount)">Videos Count</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<PackageDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
+                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<PackageDto, object>(x=>x.VideosCount)">Videos Count</MudTableSortLabel></MudTh>
                 <MudTh Style="text-align:center">Status</MudTh>
                 <MudTh Style="text-align:center">Actions</MudTh>
             </HeaderContent>
 
             <RowTemplate>
-                <MudTd DataLabel="Link"><MudLink Href="@context.Link">@context.WebsiteName</MudLink></MudTd>
+                <MudTd DataLabel="Name">@context.Name</MudTd>
                 <MudTd Style="text-align:center" DataLabel="Videos Count">@context.VideosCount</MudTd>
                 <MudTd Style="text-align:center" DataLabel="Status">
                     <MudChip Size="Size.Small"
@@ -39,7 +39,7 @@
                     <MudButtonGroup Size="Size.Small" Color="Color.Info" Variant="Variant.Outlined">
                         <MudIconButton OnClick="() => OpenForm(context.Id)" Disabled="isDisable" Icon="@Icons.Material.Filled.Edit"/>
                         <MudIconButton Disabled="isDisable"
-                                       OnClick="() => ChangeStatus(context.Id,context.Link)"
+                                       OnClick="() => ChangeStatus(context.Id,context.Name)"
                                        Icon="@(context.IsDeleted? Icons.Material.Filled.Check : Icons.Material.Outlined.Delete)"
                                        Color="@(context.IsDeleted? Color.Success : Color.Error)"/>
                         

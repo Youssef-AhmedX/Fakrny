@@ -1,8 +1,8 @@
-﻿@inherits BasePage<ReferenceLinkDto>
+﻿@inherits BasePage<PackageDto>
 
 <MudDialog>
     <DialogContent>
-        @if (referenceLinkForm is null)
+        @if (packageForm is null)
         {
             <MudCard Outlined="true" Style="border:0px;text-align:center">
                 <MudCardContent>
@@ -15,14 +15,13 @@
         else
         {
             <MudCard Style="border:0px;" Outlined="true">
-                <EditForm Model="@referenceLinkForm" OnValidSubmit="OnValidSubmit">
+                <EditForm Model="@packageForm" OnValidSubmit="OnValidSubmit">
                     <DataAnnotationsValidator />
                     <MudCardContent Style="padding-top: 0px">
-                        <MudTextField Class="mb-5" @bind-Value="referenceLinkForm.Link" For="@(() => referenceLinkForm.Link)" />
-                        <MudTextField Class="mb-5" @bind-Value="referenceLinkForm.WebsiteName" For="@(() => referenceLinkForm.WebsiteName)" />
+                        <MudTextField @bind-Value="packageForm.Name" For="@(() => packageForm.Name)" />
                     </MudCardContent>
                     <MudCardActions>
-                        <MudCheckBox Dense="true" @bind-Checked="@referenceLinkForm.IsDeleted" For="@(() => referenceLinkForm.IsDeleted)" Label="Mark As Deleted" Color="Color.Error"></MudCheckBox>
+                        <MudCheckBox Dense="true" @bind-Checked="@packageForm.IsDeleted" For="@(() => packageForm.IsDeleted)" Label="Mark As Deleted" Color="Color.Error"></MudCheckBox>
                         <MudSpacer />
                         <MudButton Class="me-1" Variant="Variant.Outlined" OnClick="Cancel">Cancel</MudButton>
                         <MudButton Variant="isDisable ? Variant.Text : Variant.Outlined" ButtonType="ButtonType.Submit" Disabled="isDisable" Color="Color.Success">

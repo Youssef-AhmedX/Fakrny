@@ -57,6 +57,7 @@ public class LibrariesController : ControllerBase
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
         library.Name = libraryDto.Name;
+        library.IsDeleted = libraryDto.IsDeleted;
 
         _libraryService.Update(library);
 

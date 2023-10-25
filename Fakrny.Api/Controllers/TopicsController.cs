@@ -57,6 +57,7 @@ public class TopicsController : ControllerBase
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
         topic.Name = topicDto.Name;
+        topic.IsDeleted = topicDto.IsDeleted;
 
         _topicService.Update(topic);
 
