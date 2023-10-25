@@ -11,6 +11,7 @@ public class AuthorService : BaseService<Author>, IAuthorService
             .Include(a => a.Courses)
             .Select(a => new Author
             {
+                Id = a.Id,
                 Name = a.Name,
                 Nickname = a.Nickname,
                 IsDeleted = a.IsDeleted,

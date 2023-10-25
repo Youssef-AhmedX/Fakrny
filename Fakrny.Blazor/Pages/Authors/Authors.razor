@@ -40,8 +40,7 @@
                 <MudTd Style="text-align:center" DataLabel="Actions">
                     <MudButtonGroup Size="Size.Small" Color="Color.Info" Variant="Variant.Outlined">
                         <MudIconButton OnClick="() => OpenForm(context.Id)" Disabled="isDisable" Icon="@Icons.Material.Filled.Edit"></MudIconButton>
-                        <MudIconButton Disabled="isDisable"
-                                       OnClick="() => ChangeStatus(context.Id,context.Name)"
+                        <MudIconButton Disabled="isDisable" OnClick="() => ChangeStatus(context.Id,context.Name)"
                                        Icon="@(context.IsDeleted? Icons.Material.Filled.Check : Icons.Material.Outlined.Delete)"
                                        Color="@(context.IsDeleted? Color.Success : Color.Error)">
                         </MudIconButton>
