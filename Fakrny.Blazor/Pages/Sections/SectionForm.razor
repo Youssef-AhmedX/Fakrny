@@ -4,13 +4,7 @@
     <DialogContent>
         @if (sectionForm is null)
         {
-            <MudCard Outlined="true" Style="border:0px;text-align:center">
-                <MudCardContent>
-                    <MudProgressCircular Color="Color.Info" Style="height:70px;width:70px;" Indeterminate="true" />
-                </MudCardContent>
-                <MudCardActions>
-                </MudCardActions>
-            </MudCard>
+            <FormLoadingSpinner IsBigForm="true" />
         }
         else
         {
@@ -18,9 +12,12 @@
                 <EditForm Model="@sectionForm" OnValidSubmit="OnValidSubmit">
                     <DataAnnotationsValidator />
                     <MudCardContent Style="padding-top: 0px">
-                        <MudTextField Class="mb-5" HelperText="Required" Variant="Variant.Outlined" @bind-Value="sectionForm.Name" For="@(() => sectionForm.Name)" />
-                        <MudTextField Class="mb-5" HelperText="Required" Variant="Variant.Outlined" @bind-Value="sectionForm.Number" For="@(() => sectionForm.Number)" />
-                        <MudNumericField Class="mb-5" HideSpinButtons="true" HelperText="Not Required" @bind-Value="sectionForm.OrderIndex" For="@(() => sectionForm.OrderIndex)" Variant="Variant.Outlined" />
+                        <div class="gap-4 d-flex mb-5">
+                            <MudTextField Class="w-50" HelperText="Required" Variant="Variant.Outlined" @bind-Value="sectionForm.Name" For="@(() => sectionForm.Name)" />
+                            <MudTextField HelperText="Required" Variant="Variant.Outlined" @bind-Value="sectionForm.Number" For="@(() => sectionForm.Number)" />
+                            <MudNumericField HideSpinButtons="true" HelperText="Not Required" @bind-Value="sectionForm.OrderIndex" For="@(() => sectionForm.OrderIndex)"
+                                         Variant="Variant.Outlined" AdornmentColor="Color.Info" Adornment="Adornment.End" AdornmentText="#" />
+                        </div>
                         <MudTextField Class="mb-5" HelperText="Required" Variant="Variant.Outlined" Lines="5" @bind-Value="sectionForm.Description" For="@(() => sectionForm.Description)" />
                     </MudCardContent>
                     <MudCardActions>

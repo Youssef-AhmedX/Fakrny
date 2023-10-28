@@ -125,7 +125,7 @@ public class BasePage<T> : ComponentBase where T : class
 
     protected string HandelDuration(double durationInMin)
     {
-        if (durationInMin <= 60)
+        if (durationInMin < 60)
             return $"{durationInMin} Minutes";
 
         double durationInHours = (durationInMin / 60);

@@ -4,13 +4,7 @@
     <DialogContent>
         @if (courseForm is null)
         {
-            <MudCard Outlined="true" Style="border:0px;text-align:center">
-                <MudCardContent>
-                    <MudProgressCircular Color="Color.Info" Style="height:70px;width:70px;" Indeterminate="true" />
-                </MudCardContent>
-                <MudCardActions>
-                </MudCardActions>
-            </MudCard>
+            <FormLoadingSpinner IsBigForm="true" />
         }
         else
         {
@@ -18,15 +12,17 @@
                 <EditForm Model="@courseForm" OnValidSubmit="OnValidSubmit">
                     <DataAnnotationsValidator />
                     <MudCardContent Style="padding-top: 0px">
-                        <MudTextField Class="mb-5" HelperText="Required" Variant="Variant.Outlined" @bind-Value="courseForm.Name" For="@(() => courseForm.Name)" />
+                        <div class="gap-4 d-flex mb-5">
+                            <MudTextField Class="mb-5" HelperText="Required" Variant="Variant.Outlined" @bind-Value="courseForm.Name" For="@(() => courseForm.Name)" />
+                            <MudSelect HelperText="Required" Variant="Variant.Outlined" @bind-Value="courseForm.AuthorId" For="@(() => courseForm.AuthorId)"
+                                   Placeholder="Please Select Author" AdornmentIcon="@Icons.Material.Filled.Person" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter" T="int?">
+                                @foreach (var author in authors)
+                                {
+                                    <MudSelectItem Value="@(author.Id)" Disabled="author.IsDeleted">@author.Name @(author.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </div>
                         <MudTextField Class="mb-5" HelperText="Required" Variant="Variant.Outlined" Lines="5" @bind-Value="courseForm.Description" For="@(() => courseForm.Description)" />
-                        <MudSelect HelperText="Required" Variant="Variant.Outlined" @bind-Value="courseForm.AuthorId" For="@(() => courseForm.AuthorId)"
-                               Placeholder="Please Select Author" AdornmentIcon="@Icons.Material.Filled.Person" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter" T="int?">
-                            @foreach (var author in authors)
-                            {
-                                <MudSelectItem Value="@(author.Id)" Disabled="author.IsDeleted">@author.Name @(author.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
-                            }
-                        </MudSelect>
                     </MudCardContent>
                     <MudCardActions>
                         <div>

@@ -14,7 +14,7 @@ public partial class Sections
         DialogOptions dialogOptions = new()
         {
             CloseOnEscapeKey = true,
-            MaxWidth = MaxWidth.Small,
+            MaxWidth = MaxWidth.Medium,
             FullWidth = true,
             Position = DialogPosition.Center,
             CloseButton = true

@@ -4,13 +4,7 @@
     <DialogContent>
         @if (referenceLinkForm is null)
         {
-            <MudCard Outlined="true" Style="border:0px;text-align:center">
-                <MudCardContent>
-                    <MudProgressCircular Color="Color.Info" Style="height:70px;width:70px;" Indeterminate="true" />
-                </MudCardContent>
-                <MudCardActions>
-                </MudCardActions>
-            </MudCard>
+            <FormLoadingSpinner />
         }
         else
         {

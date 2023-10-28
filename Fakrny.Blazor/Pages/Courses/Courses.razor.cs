@@ -45,7 +45,7 @@ public partial class Courses
         DialogOptions dialogOptions = new()
         {
             CloseOnEscapeKey = true,
-            MaxWidth = MaxWidth.Small,
+            MaxWidth = MaxWidth.Medium,
             FullWidth = true,
             Position = DialogPosition.Center,
             CloseButton = true
