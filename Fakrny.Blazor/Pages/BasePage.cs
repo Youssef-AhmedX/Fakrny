@@ -123,6 +123,17 @@ public class BasePage<T> : ComponentBase where T : class
         return true;
     }
 
+    protected string HandelDuration(double durationInMin)
+    {
+        if (durationInMin <= 60)
+            return $"{durationInMin} Minutes";
+
+        double durationInHours = (durationInMin / 60);
+        durationInHours = Math.Round(durationInHours, 1);
+
+        return $"{durationInHours} Hours";
+    }
+
     //TODO : Handel All Status Codes
     private void HandelNavigation(string StatusCode)
     {

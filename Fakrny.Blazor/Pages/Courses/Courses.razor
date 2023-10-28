@@ -21,15 +21,23 @@
             <HeaderContent>
                 <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<CourseDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
                 <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<CourseDto, object>(x=>x.Author.Name)">Author</MudTableSortLabel></MudTh>
-                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<CourseDto, object>(x=>x.Duration)">Duration</MudTableSortLabel></MudTh>
+                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<CourseDto, object>(x=>x.DurationInMin)">Duration</MudTableSortLabel></MudTh>
                 <MudTh Style="text-align:center">Status</MudTh>
                 <MudTh Style="text-align:center">Actions</MudTh>
             </HeaderContent>
 
             <RowTemplate>
-                <MudTd DataLabel="Name">@context.Name</MudTd>
+                <MudTd DataLabel="Name">
+                    <MudText Style="display: flex;align-items: center;">
+                        @context.Name
+                        @if (context.IsPaid)
+                        {
+                            <MudIcon Class="ms-2" Icon="@Icons.Material.Filled.Paid" Color="Color.Warning" />
+                        }
+                    </MudText>
+                </MudTd>
                 <MudTd Style="text-align:center" DataLabel="Author">@context.Author.Name</MudTd>
-                <MudTd Style="text-align:center" DataLabel="Duration">@context.Duration</MudTd>
+                <MudTd Style="text-align:center" DataLabel="Duration">@HandelDuration(context.DurationInMin)</MudTd>
                 <MudTd Style="text-align:center" DataLabel="Status">
                     <MudChip Size="Size.Small"
                              Icon="@(context.IsDeleted? Icons.Material.Filled.Cancel : Icons.Material.Outlined.Check)"
@@ -44,7 +52,7 @@
                                        OnClick="() => ChangeStatus(context.Id,context.Name)"
                                        Icon="@(context.IsDeleted? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Cancel)"
                                        Color="@(context.IsDeleted? Color.Success : Color.Error)"/>
-                        <MudIconButton OnClick="() => OpenForm(context.Id)" Disabled="isDisable" Icon="@Icons.Material.Filled.Info" />
+                        <MudIconButton Href=@($"/Courses/Details/{context.Id}") Disabled="isDisable" Icon="@Icons.Material.Filled.Info" />
                     </MudButtonGroup>
                 </MudTd>
             </RowTemplate>

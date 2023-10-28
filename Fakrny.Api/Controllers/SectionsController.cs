@@ -11,23 +11,44 @@ public class SectionsController : ControllerBase
         _sectionService = sectionService;
     }
 
-    [HttpGet]
-    public ActionResult<IEnumerable<SectionDto>> GetAll()
+    [HttpGet("WithDetails/{id}")]
+    public ActionResult<SectionDetailsDto> GetByIdWithDetails(int id)
     {
-        var sections = _sectionService.GetAll();
+        var section = _sectionService.GetByIdWithDetails(id);
 
-        var sectionsDto = new List<SectionDto>();
+        if (section is null)
+            return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
-        foreach (var section in sections)
+        var SectionDto = new SectionDetailsDto
         {
-            sectionsDto.Add(MapToDto(section));
-        }
+            Id = section.Id,
+            Name = section.Name,
+            Number = section.Number,
+            OrderIndex = section.OrderIndex,
+            Description = section.Description,
+            IsDeleted = section.IsDeleted,
+            DurationInMin = section.Videos.Where(v => !v.IsDeleted).Sum(v => v.DurationInMin),
+            Course = new LookupDto
+            {
+                Id = section.CourseId,
+                Name = section.Course!.Name
+            },
+            Videos = section.Videos.Select(s => new VideoDto
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Number = s.Number,
+                OrderIndex = s.OrderIndex,
+                IsDeleted = s.IsDeleted,
+                DurationInMin = s.DurationInMin
+            }),
+        };
 
-        return Ok(sectionsDto);
+        return Ok(SectionDto);
     }
 
     [HttpGet("{id}")]
-    public ActionResult<SectionDto> GetById(int id)
+    public ActionResult<SectionPostDto> GetById(int id)
     {
         var section = _sectionService.GetById(id);
 
@@ -38,9 +59,18 @@ public class SectionsController : ControllerBase
     }
 
     [HttpPost("Add")]
-    public ActionResult<SectionDto> Add(SectionDto sectionDto)
+    public ActionResult<SectionPostDto> Add(SectionPostDto sectionDto)
     {
-        var section = MapToEntity(sectionDto);
+        var section = new Section
+        {
+            Id = sectionDto.Id,
+            Name = sectionDto.Name,
+            Number = sectionDto.Number,
+            OrderIndex = sectionDto.OrderIndex,
+            Description = sectionDto.Description,
+            CourseId = sectionDto.CourseId,
+            IsDeleted = sectionDto.IsDeleted,
+        };
 
         _sectionService.Add(section);
 
@@ -48,7 +78,7 @@ public class SectionsController : ControllerBase
     }
 
     [HttpPut("Update/{id}")]
-    public ActionResult<SectionDto> Update(SectionDto sectionDto, int id)
+    public ActionResult<SectionPostDto> Update(SectionPostDto sectionDto, int id)
     {
         var section = _sectionService.GetById(id);
 
@@ -56,6 +86,11 @@ public class SectionsController : ControllerBase
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
         section.Name = sectionDto.Name;
+        section.Number = sectionDto.Number;
+        section.OrderIndex = sectionDto.OrderIndex;
+        section.Description = sectionDto.Description;
+        section.CourseId = sectionDto.CourseId;
+        section.IsDeleted = sectionDto.IsDeleted;
 
         _sectionService.Update(section);
 
@@ -77,27 +112,19 @@ public class SectionsController : ControllerBase
         return Ok($"Status Toggled Successfully for {_entityName} with Id equal {section.Id}");
     }
 
-    private SectionDto MapToDto(Section section)
+    private SectionPostDto MapToDto(Section section)
     {
-        var sectionDto = new SectionDto
+        var sectionDto = new SectionPostDto
         {
             Id = section.Id,
             Name = section.Name,
+            Number = section.Number,
+            OrderIndex = section.OrderIndex,
+            Description = section.Description,
+            CourseId = section.CourseId,
             IsDeleted = section.IsDeleted
         };
 
         return sectionDto;
-    }
-
-    private Section MapToEntity(SectionDto sectionDto)
-    {
-        var section = new Section
-        {
-            Id = sectionDto.Id,
-            Name = sectionDto.Name,
-            IsDeleted = sectionDto.IsDeleted
-        };
-
-        return section;
     }
 }

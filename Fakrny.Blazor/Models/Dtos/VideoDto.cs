@@ -1,4 +1,4 @@
-﻿namespace Fakrny.Domain.Dtos;
+﻿namespace Fakrny.Blazor.Models.Dtos;
 
 public class VideoDto : BaseDto
 {
@@ -24,12 +24,21 @@ public class VideoDetailsDto : VideoDto
 public class VideoPostDto : BaseDto
 {
     public int Id { get; set; }
+    [Required]
+    [Label("Video Name")]
     public string Name { get; set; } = null!;
+    [Required]
+    [Label("Video Number")]
     public string Number { get; set; } = null!;
-    public int DurationInMin { get; set; }
+    [Label("Video Index")]
     public int? OrderIndex { get; set; }
+    [Required]
+    [Label("Video Description")]
     public string Description { get; set; } = null!;
-    public int SectionId { get; set; }
+    [Required]
+    [Label("Video Duration In Min")]
+    public int DurationInMin { get; set; }
+    public int? SectionId { get; set; }
     public IEnumerable<int> ReferenceLinksId { get; set; } = new List<int>();
     public IEnumerable<int> LibrariesId { get; set; } = new List<int>();
     public IEnumerable<int> PackagesId { get; set; } = new List<int>();

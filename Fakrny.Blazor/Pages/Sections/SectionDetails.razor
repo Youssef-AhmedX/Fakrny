@@ -1,0 +1,62 @@
+﻿@page "/Sections/Details/{Id:int}"
+@inherits BasePage<SectionDetailsDto>
+
+<PageTitle>Sections</PageTitle>
+<MudBreadcrumbs Items="breadcrumbItems"></MudBreadcrumbs>
+
+@if (sectionDto is null)
+{
+    <MudCard Outlined="true" Style="border:0px;text-align:center">
+        <MudCardContent>
+            <MudProgressCircular Color="Color.Info" Style="height:70px;width:70px;" Indeterminate="true" />
+        </MudCardContent>
+        <MudCardActions>
+        </MudCardActions>
+    </MudCard>
+}
+else
+{
+    <MudCard Elevation="25">
+        <MudCardHeader Style="padding:20px">
+            <CardHeaderAvatar>
+                <MudAvatar Size="Size.Large" Rounded="true" Color="Color.Info">
+                    <MudIcon Icon="@Icons.Material.Filled.GridView" />
+                </MudAvatar>
+            </CardHeaderAvatar>
+            <CardHeaderContent>
+                <MudText Style="display: flex;align-items: center;" Typo="Typo.h5">
+                    @($"{sectionDto.Number}. {sectionDto.Name}")
+                </MudText>
+                <MudChip Variant="Variant.Text" Size="Size.Small" Icon="@Icons.Material.Filled.OndemandVideo" Color="Color.Info">@sectionDto.Course.Name</MudChip>
+                <MudChip Variant="Variant.Text" Size="Size.Small" Icon="@Icons.Material.Outlined.Timer" Color="Color.Info">@HandelDuration(sectionDto.DurationInMin)</MudChip>
+                @if (sectionDto.OrderIndex is not null)
+                {
+                    <MudChip Variant="Variant.Text" Size="Size.Small" Icon="@Icons.Material.Outlined.Sort" Color="Color.Info">#@sectionDto.OrderIndex</MudChip>
+                }      
+                <MudChip Variant="Variant.Text" Size="Size.Small"
+                     Icon="@(sectionDto.IsDeleted? Icons.Material.Filled.Cancel : Icons.Material.Outlined.Check)"
+                     Color="@(sectionDto.IsDeleted? Color.Error : Color.Success)">
+
+                    @(sectionDto.IsDeleted ? "Deleted" : "Avaliable")
+                </MudChip>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudButton OnClick="() => OpenForm(sectionDto.Id)" Style="margin:10px" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">
+                    Edit
+                </MudButton>
+            </CardHeaderActions>
+        </MudCardHeader>
+    </MudCard>
+
+    <MudTabs SliderColor="Color.Info" Class="mt-5" Elevation="25" Rounded="true" ApplyEffectsToContainer=true PanelClass="bg-white px-6 pb-6 pt-0">
+        <MudTabPanel Icon="@Icons.Material.Filled.Info" Text="More Info">
+            <MudText Class="mb-1 mt-6" Typo="Typo.h6">Description:</MudText>
+            <MudPaper Style="max-height:300px;overflow:scroll;border:0" Outlined="true">
+                <MudText Class="mb-2 m-3 text-secondary" Typo="Typo.body2">@sectionDto.Description</MudText>
+            </MudPaper>
+        </MudTabPanel>
+        <MudTabPanel Icon="@Icons.Material.Filled.VideoLibrary" Text="Videos">
+            <Videos SectionId="sectionDto.Id" VideosList="sectionDto.Videos" OnDurationChanged="ChangeDuration" />
+        </MudTabPanel>
+    </MudTabs>
+}

@@ -76,8 +76,9 @@ public partial class Courses
             Id = courseDetails.Id,
             Name = courseDetails.Name,
             Author = courseDetails.Author,
-            Duration = courseDetails.Duration,
+            DurationInMin = courseDetails.DurationInMin,
             IsDeleted = courseDetails.IsDeleted,
+            IsPaid = courseDetails.IsPaid,
         };
 
         courses.Add(courseDto);

@@ -11,23 +11,8 @@ public class VideosController : ControllerBase
         _videoService = videoService;
     }
 
-    [HttpGet]
-    public ActionResult<IEnumerable<VideoDto>> GetAll()
-    {
-        var videos = _videoService.GetAll();
-
-        var videosDto = new List<VideoDto>();
-
-        foreach (var video in videos)
-        {
-            videosDto.Add(MapToDto(video));
-        }
-
-        return Ok(videosDto);
-    }
-
     [HttpGet("{id}")]
-    public ActionResult<VideoDto> GetById(int id)
+    public ActionResult<VideoPostDto> GetById(int id)
     {
         var video = _videoService.GetById(id);
 
@@ -38,9 +23,23 @@ public class VideosController : ControllerBase
     }
 
     [HttpPost("Add")]
-    public ActionResult<VideoDto> Add(VideoDto videoDto)
+    public ActionResult<VideoPostDto> Add(VideoPostDto videoDto)
     {
-        var video = MapToEntity(videoDto);
+        var video = new Video
+        {
+            Name = videoDto.Name,
+            Number = videoDto.Number,
+            DurationInMin = videoDto.DurationInMin,
+            OrderIndex = videoDto.OrderIndex,
+            Description = videoDto.Description,
+            IsDeleted = videoDto.IsDeleted,
+            SectionId = videoDto.SectionId,
+            Topics = videoDto.TopicsId?.Select(Id => new VideoTopic { TopicId = Id }).ToList()!,
+            Packages = videoDto.PackagesId?.Select(Id => new VideoPackage { PackageId = Id }).ToList()!,
+            Libraries = videoDto.LibrariesId?.Select(Id => new VideoLibrary { LibraryId = Id }).ToList()!,
+            Languages = videoDto.LanguagesId?.Select(Id => new VideoLanguage { LanguageId = Id }).ToList()!,
+            ReferenceLinks = videoDto.ReferenceLinksId?.Select(Id => new VideoReferenceLink { ReferenceLinkId = Id }).ToList()!,
+        };
 
         _videoService.Add(video);
 
@@ -48,7 +47,7 @@ public class VideosController : ControllerBase
     }
 
     [HttpPut("Update/{id}")]
-    public ActionResult<VideoDto> Update(VideoDto videoDto, int id)
+    public ActionResult<VideoPostDto> Update(VideoPostDto videoDto, int id)
     {
         var video = _videoService.GetById(id);
 
@@ -56,6 +55,16 @@ public class VideosController : ControllerBase
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
         video.Name = videoDto.Name;
+        video.Number = videoDto.Number;
+        video.DurationInMin = videoDto.DurationInMin;
+        video.OrderIndex = videoDto.OrderIndex;
+        video.Description = videoDto.Description;
+        video.IsDeleted = videoDto.IsDeleted;
+        video.Topics = videoDto.TopicsId?.Select(Id => new VideoTopic { TopicId = Id }).ToList()!;
+        video.Packages = videoDto.PackagesId?.Select(Id => new VideoPackage { PackageId = Id }).ToList()!;
+        video.Libraries = videoDto.LibrariesId?.Select(Id => new VideoLibrary { LibraryId = Id }).ToList()!;
+        video.Languages = videoDto.LanguagesId?.Select(Id => new VideoLanguage { LanguageId = Id }).ToList()!;
+        video.ReferenceLinks = videoDto.ReferenceLinksId?.Select(Id => new VideoReferenceLink { ReferenceLinkId = Id }).ToList()!;
 
         _videoService.Update(video);
 
@@ -77,27 +86,25 @@ public class VideosController : ControllerBase
         return Ok($"Status Toggled Successfully for {_entityName} with Id equal {video.Id}");
     }
 
-    private VideoDto MapToDto(Video video)
+    private VideoPostDto MapToDto(Video video)
     {
-        var videoDto = new VideoDto
+        var videoDto = new VideoPostDto
         {
             Id = video.Id,
             Name = video.Name,
-            IsDeleted = video.IsDeleted
+            Number = video.Number,
+            Description = video.Description,
+            DurationInMin = video.DurationInMin,
+            OrderIndex = video.OrderIndex,
+            SectionId = video.SectionId,
+            IsDeleted = video.IsDeleted,
+            ReferenceLinksId = video.ReferenceLinks?.Select(r => r.ReferenceLinkId)!,
+            TopicsId = video.Topics?.Select(r => r.TopicId)!,
+            PackagesId = video.Packages?.Select(r => r.PackageId)!,
+            LibrariesId = video.Libraries?.Select(r => r.LibraryId)!,
+            LanguagesId = video.Languages?.Select(r => r.LanguageId)!,
         };
 
         return videoDto;
-    }
-
-    private Video MapToEntity(VideoDto videoDto)
-    {
-        var video = new Video
-        {
-            Id = videoDto.Id,
-            Name = videoDto.Name,
-            IsDeleted = videoDto.IsDeleted
-        };
-
-        return video;
     }
 }

@@ -1,0 +1,49 @@
+﻿@inherits BasePage<VideoDto>
+
+<MudTable Dense="true" Elevation="0" FixedHeader="true" Height="250px"
+          Loading="@(isLoading)" LoadingProgressColor="Color.Info"
+          Items="VideosList" Hover="true" SortLabel="Sort By"
+          Filter="new Func<VideoDto,bool>(FilterFunc)">
+
+    <ToolBarContent>
+        <MudText Class="me-1" Typo="Typo.h6">Videos</MudText>
+        <MudIconButton OnClick="() => OpenForm()" Color="Color.Success" Icon="@Icons.Material.Filled.Add"></MudIconButton>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+
+    <HeaderContent>
+        <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<VideoDto, object>(x=>x.Number)">Video</MudTableSortLabel></MudTh>
+        <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<VideoDto, object>(x=>x.DurationInMin)">Duration</MudTableSortLabel></MudTh>
+        <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<VideoDto, object>(x=>x.OrderIndex)">Order Index</MudTableSortLabel></MudTh>
+        <MudTh Style="text-align:center">Status</MudTh>
+        <MudTh Style="text-align:center">Actions</MudTh>
+    </HeaderContent>
+
+    <RowTemplate>
+        <MudTd DataLabel="Name">@($"{context.Number}. {@context.Name}")</MudTd>
+            <MudTd Style="text-align:center" DataLabel="Duration">@HandelDuration(context.DurationInMin!)</MudTd>
+            <MudTd Style="text-align:center" DataLabel="Order Index">@context.OrderIndex</MudTd>
+            <MudTd Style="text-align:center" DataLabel="Status">
+                <MudChip Size="Size.Small"
+                     Icon="@(context.IsDeleted? Icons.Material.Filled.Cancel : Icons.Material.Outlined.Check)"
+                     Color="@(context.IsDeleted? Color.Error : Color.Success)">
+                    @(context.IsDeleted ? "Deleted" : "Avaliable")
+            </MudChip>
+        </MudTd>
+        <MudTd Style="text-align:center" DataLabel="Actions">
+            <MudButtonGroup Size="Size.Small" Color="Color.Info" Variant="Variant.Outlined">
+                <MudIconButton OnClick="() => OpenForm(context.Id)" Disabled="isDisable" Icon="@Icons.Material.Filled.Edit" />
+                <MudIconButton Disabled="isDisable"
+                               OnClick="() => ChangeStatus(context.Id,context.Name,context.DurationInMin)"
+                               Icon="@(context.IsDeleted? Icons.Material.Filled.CheckCircle : Icons.Material.Filled.Cancel)"
+                               Color="@(context.IsDeleted? Color.Success : Color.Error)" />
+                <MudIconButton Href=@($"/Videos/Details/{context.Id}") Disabled="isDisable" Icon="@Icons.Material.Filled.Info" />
+            </MudButtonGroup>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager HorizontalAlignment="HorizontalAlignment.Center" InfoFormat="{first_item}-{last_item} of {all_items}" PageSizeOptions="new int[]{25, 50, 100,int.MaxValue}" />
+    </PagerContent>
+</MudTable>
+

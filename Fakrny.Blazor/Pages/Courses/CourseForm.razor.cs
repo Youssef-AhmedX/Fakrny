@@ -50,6 +50,7 @@ public partial class CourseForm
                 Name = courseDtoResult!.Name,
                 Description = courseDtoResult!.Description,
                 IsDeleted = courseDtoResult!.IsDeleted,
+                IsPaid = courseDtoResult!.IsPaid,
                 Author = author,
             };
 

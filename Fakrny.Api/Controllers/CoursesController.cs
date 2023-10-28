@@ -12,25 +12,26 @@ public class CoursesController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<CourseGetDto>> GetAllWithDetails()
+    public ActionResult<IEnumerable<CourseDto>> GetAllWithDetails()
     {
         var courses = _courseService.GetAllWithDetails();
 
-        var coursesDto = new List<CourseGetDto>();
+        var coursesDto = new List<CourseDto>();
 
         foreach (var course in courses)
         {
-            coursesDto.Add(new CourseGetDto
+            coursesDto.Add(new CourseDto
             {
                 Id = course.Id,
                 Name = course.Name,
+                IsDeleted = course.IsDeleted,
+                IsPaid = course.IsPaid,
+                DurationInMin = course.Sections.Where(s => !s.IsDeleted).Select(s => s.Videos.Where(v => !v.IsDeleted).Sum(v => v.DurationInMin)).Sum(),
                 Author = new LookupDto
                 {
                     Id = course.AuthorId,
                     Name = course.Author!.Name,
                 },
-                IsDeleted = course.IsDeleted,
-                Duration = course.Sections.Select(s => s.Videos.Sum(v => v.DurationInMin)).Sum(),
             });
         }
 
@@ -38,25 +39,35 @@ public class CoursesController : ControllerBase
     }
 
     [HttpGet("WithDetails/{id}")]
-    public ActionResult<CourseGetDetailsDto> GetByIdWithDetails(int id)
+    public ActionResult<CourseDetailsDto> GetByIdWithDetails(int id)
     {
         var course = _courseService.GetByIdWithDetails(id);
 
         if (course is null)
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
-        var CourseDto = new CourseGetDetailsDto
+        var CourseDto = new CourseDetailsDto
         {
             Id = course.Id,
             Name = course.Name,
             Description = course.Description,
             IsDeleted = course.IsDeleted,
+            IsPaid = course.IsPaid,
+            DurationInMin = course.Sections.Where(s => !s.IsDeleted).Select(s => s.Videos.Where(v => !v.IsDeleted).Sum(v => v.DurationInMin)).Sum(),
             Author = new LookupDto
             {
                 Id = course.AuthorId,
-                Name = course.Author!.Name,
+                Name = course.Author!.Name
             },
-            Sections = course.Sections.Select(s => new LookupDto { Id = s.Id, Name = s.Name })
+            Sections = course.Sections.Select(s => new SectionDto
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Number = s.Number,
+                OrderIndex = s.OrderIndex,
+                IsDeleted = s.IsDeleted,
+                DurationInMin = s.Videos.Where(v => !v.IsDeleted).Select(v => v.DurationInMin).Sum()
+            }),
         };
 
         return Ok(CourseDto);
@@ -70,22 +81,20 @@ public class CoursesController : ControllerBase
         if (course is null)
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
 
-        var CourseDto = new CoursePostDto
-        {
-            Id = course.Id,
-            Name = course.Name,
-            Description = course.Description,
-            AuthorId = course.AuthorId,
-            IsDeleted = course.IsDeleted,
-        };
-
-        return Ok(CourseDto);
+        return Ok(MapToDto(course));
     }
 
     [HttpPost("Add")]
     public ActionResult<CoursePostDto> Add(CoursePostDto courseDto)
     {
-        var course = MapToEntity(courseDto);
+        var course = new Course
+        {
+            Id = courseDto.Id,
+            Name = courseDto.Name,
+            Description = courseDto.Description,
+            AuthorId = courseDto.AuthorId,
+            IsDeleted = courseDto.IsDeleted
+        };
 
         _courseService.Add(course);
 
@@ -104,6 +113,7 @@ public class CoursesController : ControllerBase
         course.Description = courseDto.Description;
         course.AuthorId = courseDto.AuthorId;
         course.IsDeleted = courseDto.IsDeleted;
+        course.IsPaid = courseDto.IsPaid;
 
         _courseService.Update(course);
 
@@ -133,23 +143,10 @@ public class CoursesController : ControllerBase
             Name = course.Name,
             Description = course.Description,
             AuthorId = course.AuthorId,
-            IsDeleted = course.IsDeleted
+            IsDeleted = course.IsDeleted,
+            IsPaid = course.IsPaid,
         };
 
         return courseDto;
-    }
-
-    private Course MapToEntity(CoursePostDto courseDto)
-    {
-        var course = new Course
-        {
-            Id = courseDto.Id,
-            Name = courseDto.Name,
-            Description = courseDto.Description,
-            AuthorId = courseDto.AuthorId,
-            IsDeleted = courseDto.IsDeleted
-        };
-
-        return course;
     }
 }

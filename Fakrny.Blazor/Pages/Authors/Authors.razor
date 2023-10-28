@@ -20,7 +20,7 @@
 
             <HeaderContent>
                 <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<AuthorDto, object>(x=>x.Name)">Name</MudTableSortLabel></MudTh>
-                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<AuthorDto, object>(x=>x.Nickname)">Nickname</MudTableSortLabel></MudTh>
+                <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<AuthorDto, object>(x=>x.Nickname??string.Empty)">Nickname</MudTableSortLabel></MudTh>
                 <MudTh Style="text-align:center"><MudTableSortLabel SortBy="new Func<AuthorDto, object>(x=>x.CoursesCount)">Courses Count</MudTableSortLabel></MudTh>
                 <MudTh Style="text-align:center">Status</MudTh>
                 <MudTh Style="text-align:center">Actions</MudTh>

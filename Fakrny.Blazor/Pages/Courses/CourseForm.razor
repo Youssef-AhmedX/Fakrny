@@ -20,7 +20,7 @@
                     <MudCardContent Style="padding-top: 0px">
                         <MudTextField Class="mb-5" HelperText="Required" Variant="Variant.Outlined" @bind-Value="courseForm.Name" For="@(() => courseForm.Name)" />
                         <MudTextField Class="mb-5" HelperText="Required" Variant="Variant.Outlined" Lines="5" @bind-Value="courseForm.Description" For="@(() => courseForm.Description)" />
-                        <MudSelect Class="mb-5" HelperText="Required" Variant="Variant.Outlined" @bind-Value="courseForm.AuthorId" For="@(() => courseForm.AuthorId)"
+                        <MudSelect HelperText="Required" Variant="Variant.Outlined" @bind-Value="courseForm.AuthorId" For="@(() => courseForm.AuthorId)"
                                Placeholder="Please Select Author" AdornmentIcon="@Icons.Material.Filled.Person" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter" T="int?">
                             @foreach (var author in authors)
                             {
@@ -29,7 +29,14 @@
                         </MudSelect>
                     </MudCardContent>
                     <MudCardActions>
-                        <MudCheckBox Dense="true" @bind-Checked="@courseForm.IsDeleted" For="@(() => courseForm.IsDeleted)" Label="Mark As Deleted" Color="Color.Error"></MudCheckBox>
+                        <div>
+                            <MudSwitch @bind-Checked="@courseForm.IsPaid" For="@(() => courseForm.IsPaid)" ThumbIcon="@Icons.Material.Filled.Paid" 
+                                   ThumbIconColor="@(courseForm.IsPaid? Color.Warning : Color.Default)" Size="Size.Medium">
+                                   Mark As Paid
+                            </MudSwitch>
+                            <MudCheckBox Dense="true" @bind-Checked="@courseForm.IsDeleted" For="@(() => courseForm.IsDeleted)"
+                                     Label="Mark As Deleted" Color="Color.Error"></MudCheckBox>
+                        </div>
                         <MudSpacer />
                         <MudButton Class="me-1" Variant="Variant.Outlined" OnClick="Cancel">Cancel</MudButton>
                         <MudButton Variant="isDisable ? Variant.Text : Variant.Outlined" ButtonType="ButtonType.Submit" Disabled="isDisable" Color="Color.Success">
