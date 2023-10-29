@@ -31,30 +31,30 @@
                             </MudSelect>
                             <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" Class="w-50" Variant="Variant.Outlined" Label="Video packages" @bind-SelectedValues="videoForm.PackagesId" SelectAllText="Select all packages"
                                    MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.Newspaper" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
-                                @foreach (var topic in packages)
+                                @foreach (var package in packages)
                                 {
-                                    <MudSelectItem Value="@((int)topic.Id!)" Disabled="topic.IsDeleted">@topic.Name @(topic.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
+                                    <MudSelectItem Value="@((int)package.Id!)" Disabled="package.IsDeleted">@package.Name @(package.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
                                 }
                             </MudSelect>
                             <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" Class="w-50" Variant="Variant.Outlined" Label="Video libraries" @bind-SelectedValues="videoForm.LibrariesId" SelectAllText="Select all libraries"
-                                   MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.Newspaper" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
-                                @foreach (var topic in libraries)
+                                   MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.AutoAwesomeMotion" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var library in libraries)
                                 {
-                                    <MudSelectItem Value="@((int)topic.Id!)" Disabled="topic.IsDeleted">@topic.Name @(topic.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
+                                    <MudSelectItem Value="@((int)library.Id!)" Disabled="library.IsDeleted">@library.Name @(library.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
                                 }
                             </MudSelect>
                             <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" Class="w-50" Variant="Variant.Outlined" Label="Video languages" @bind-SelectedValues="videoForm.LanguagesId" SelectAllText="Select all languages"
-                                   MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.Newspaper" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
-                                @foreach (var topic in languages)
+                                   MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.Code" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var language in languages)
                                 {
-                                    <MudSelectItem Value="@((int)topic.Id!)" Disabled="topic.IsDeleted">@topic.Name @(topic.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
+                                    <MudSelectItem Value="@((int)language.Id!)" Disabled="language.IsDeleted">@language.Name @(language.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
                                 }
                             </MudSelect>
                             <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" Variant="Variant.Outlined" Label="Video reference Links" @bind-SelectedValues="videoForm.ReferenceLinksId" SelectAllText="Select all referenceLinks"
-                                               MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.Newspaper" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
-                                @foreach (var topic in referenceLinks)
+                                    MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.Link" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var referenceLink in referenceLinks)
                                 {
-                                    <MudSelectItem Value="@((int)topic.Id!)" Disabled="topic.IsDeleted">@topic.WebsiteName @(topic.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
+                                    <MudSelectItem Value="@(referenceLink.Id!)" Disabled="referenceLink.IsDeleted">@referenceLink.WebsiteName @(referenceLink.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
                                 }
                             </MudSelect>
                         </div>

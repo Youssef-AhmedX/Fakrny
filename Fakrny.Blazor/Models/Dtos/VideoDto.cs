@@ -36,7 +36,7 @@ public class VideoPostDto : BaseDto
     [Label("Video Description")]
     public string Description { get; set; } = null!;
     [Required]
-    [Label("Video Duration In Min")]
+    [Label("Video Duration")]
     public int DurationInMin { get; set; }
     public int? SectionId { get; set; }
     public IEnumerable<int> ReferenceLinksId { get; set; } = new List<int>();
