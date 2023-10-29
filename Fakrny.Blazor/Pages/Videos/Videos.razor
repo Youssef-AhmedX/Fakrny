@@ -6,10 +6,9 @@
           Filter="new Func<VideoDto,bool>(FilterFunc)">
 
     <ToolBarContent>
-        <MudText Class="me-1" Typo="Typo.h6">Videos</MudText>
-        <MudIconButton OnClick="() => OpenForm()" Color="Color.Success" Icon="@Icons.Material.Filled.Add"></MudIconButton>
-        <MudSpacer />
         <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        <MudSpacer />
+        <MudButton OnClick="() => OpenForm()" Variant="Variant.Outlined" StartIcon="@Icons.Material.Filled.Add" Color="Color.Success" Size="Size.Small">Add</MudButton>
     </ToolBarContent>
 
     <HeaderContent>

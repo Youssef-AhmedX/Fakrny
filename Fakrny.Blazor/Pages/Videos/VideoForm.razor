@@ -15,12 +15,49 @@
                         <div class="gap-4 d-flex mb-5">
                             <MudTextField Class="w-50" HelperText="Required" Variant="Variant.Outlined" @bind-Value="videoForm.Name" For="@(() => videoForm.Name)" />
                             <MudTextField HelperText="Required" Variant="Variant.Outlined" @bind-Value="videoForm.Number" For="@(() => videoForm.Number)" />
-                            <MudNumericField HideSpinButtons="true" HelperText="Not Required" @bind-Value="videoForm.OrderIndex" For="@(() => videoForm.OrderIndex)"
+                            <MudNumericField HideSpinButtons="true" @bind-Value="videoForm.OrderIndex" For="@(() => videoForm.OrderIndex)"
                                          Variant="Variant.Outlined" AdornmentColor="Color.Info" Adornment="Adornment.End" AdornmentText="#" />
                             <MudNumericField HideSpinButtons="true" HelperText="Required" @bind-Value="videoForm.DurationInMin" For="@(() => videoForm.DurationInMin)"
                                          Variant="Variant.Outlined" AdornmentColor="Color.Info" Adornment="Adornment.End" AdornmentText="Min" />
                         </div>
                         <MudTextField Class="mb-5" HelperText="Required" Variant="Variant.Outlined" Lines="5" @bind-Value="videoForm.Description" For="@(() => videoForm.Description)" />
+                        <div class="gap-4 d-flex mb-5 flex-wrap">
+                            <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" Class="w-50" Variant="Variant.Outlined" Label="Video topics" @bind-SelectedValues="videoForm.TopicsId" SelectAllText="Select all topics"
+                                   MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.Newspaper" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var topic in topics)
+                                {
+                                    <MudSelectItem Value="@((int)topic.Id!)" Disabled="topic.IsDeleted">@topic.Name @(topic.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
+                                }
+                            </MudSelect>
+                            <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" Class="w-50" Variant="Variant.Outlined" Label="Video packages" @bind-SelectedValues="videoForm.PackagesId" SelectAllText="Select all packages"
+                                   MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.Newspaper" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var topic in packages)
+                                {
+                                    <MudSelectItem Value="@((int)topic.Id!)" Disabled="topic.IsDeleted">@topic.Name @(topic.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
+                                }
+                            </MudSelect>
+                            <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" Class="w-50" Variant="Variant.Outlined" Label="Video libraries" @bind-SelectedValues="videoForm.LibrariesId" SelectAllText="Select all libraries"
+                                   MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.Newspaper" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var topic in libraries)
+                                {
+                                    <MudSelectItem Value="@((int)topic.Id!)" Disabled="topic.IsDeleted">@topic.Name @(topic.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
+                                }
+                            </MudSelect>
+                            <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" Class="w-50" Variant="Variant.Outlined" Label="Video languages" @bind-SelectedValues="videoForm.LanguagesId" SelectAllText="Select all languages"
+                                   MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.Newspaper" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var topic in languages)
+                                {
+                                    <MudSelectItem Value="@((int)topic.Id!)" Disabled="topic.IsDeleted">@topic.Name @(topic.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
+                                }
+                            </MudSelect>
+                            <MudSelect MultiSelectionTextFunc="@(new Func<List<string>, string>(GetMultiSelectionText))" Variant="Variant.Outlined" Label="Video reference Links" @bind-SelectedValues="videoForm.ReferenceLinksId" SelectAllText="Select all referenceLinks"
+                                               MultiSelection="true" SelectAll="true" AdornmentIcon="@Icons.Material.Filled.Newspaper" AdornmentColor="Color.Info" AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var topic in referenceLinks)
+                                {
+                                    <MudSelectItem Value="@((int)topic.Id!)" Disabled="topic.IsDeleted">@topic.WebsiteName @(topic.IsDeleted ? "(Deleted)" : string.Empty)</MudSelectItem>
+                                }
+                            </MudSelect>
+                        </div>
                     </MudCardContent>
                     <MudCardActions>
                         <MudCheckBox Dense="true" @bind-Checked="@videoForm.IsDeleted" For="@(() => videoForm.IsDeleted)"

@@ -14,7 +14,7 @@ public class VideosController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<VideoPostDto> GetById(int id)
     {
-        var video = _videoService.GetById(id);
+        var video = _videoService.GetByIdWithDetails(id);
 
         if (video is null)
             return BadRequest($"Can not find {_entityName} with Id equal {id}");
@@ -49,7 +49,7 @@ public class VideosController : ControllerBase
     [HttpPut("Update/{id}")]
     public ActionResult<VideoPostDto> Update(VideoPostDto videoDto, int id)
     {
-        var video = _videoService.GetById(id);
+        var video = _videoService.GetVideoById(id);
 
         if (video is null)
             return BadRequest($"Can not find {_entityName} with Id equal {id}");

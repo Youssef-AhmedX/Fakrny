@@ -7,6 +7,11 @@ public partial class VideoForm
     [Parameter][EditorRequired] public int? SectionId { get; set; } = null!;
 
     private VideoPostDto? videoForm;
+    private IEnumerable<LookupDto> topics = new List<LookupDto>();
+    private IEnumerable<LookupDto> packages = new List<LookupDto>();
+    private IEnumerable<LookupDto> libraries = new List<LookupDto>();
+    private IEnumerable<LookupDto> languages = new List<LookupDto>();
+    private IEnumerable<ReferenceLinkDto> referenceLinks = new List<ReferenceLinkDto>();
 
     protected override async Task OnParametersSetAsync()
     {
@@ -17,18 +22,18 @@ public partial class VideoForm
         else
             videoForm = await GetByIdAsync($"Videos/{Id}");
 
+        topics = await GetAllLookupsAsync<LookupDto>($"Topics");
+        packages = await GetAllLookupsAsync<LookupDto>($"Packages");
+        libraries = await GetAllLookupsAsync<LookupDto>($"Libraries");
+        languages = await GetAllLookupsAsync<LookupDto>($"Languages");
+        referenceLinks = await GetAllLookupsAsync<ReferenceLinkDto>($"ReferenceLinks");
+
         StopProcessing();
     }
 
     private async Task OnValidSubmit(EditContext context)
     {
         StartProcessing();
-
-        if (!context.IsModified())
-        {
-            Cancel();
-            return;
-        }
 
         bool result;
         VideoPostDto? videoDtoResult;
@@ -58,6 +63,11 @@ public partial class VideoForm
         }
 
         StopProcessing();
+    }
+
+    private string GetMultiSelectionText(List<string> selectedValues)
+    {
+        return $"{selectedValues.Count} item{(selectedValues.Count > 1 ? "s have" : " has")} been selected";
     }
 
     void Cancel() => MudDialog.Cancel();
