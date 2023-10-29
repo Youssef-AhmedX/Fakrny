@@ -14,7 +14,7 @@
                     <MudCardContent Style="padding-top: 0px">
                         <div class="gap-4 d-flex mb-5">
                             <MudTextField Class="w-50" HelperText="Required" Variant="Variant.Outlined" @bind-Value="videoForm.Name" For="@(() => videoForm.Name)" />
-                            <MudTextField HelperText="Required" Variant="Variant.Outlined" @bind-Value="videoForm.Number" For="@(() => videoForm.Number)" />
+                            <MudNumericField HideSpinButtons="true" HelperText="Required" Variant="Variant.Outlined" @bind-Value="videoForm.Number" For="@(() => videoForm.Number)" />
                             <MudNumericField HideSpinButtons="true" @bind-Value="videoForm.OrderIndex" For="@(() => videoForm.OrderIndex)"
                                          Variant="Variant.Outlined" AdornmentColor="Color.Info" Adornment="Adornment.End" AdornmentText="#" />
                             <MudNumericField HideSpinButtons="true" HelperText="Required" @bind-Value="videoForm.DurationInMin" For="@(() => videoForm.DurationInMin)"

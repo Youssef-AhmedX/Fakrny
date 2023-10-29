@@ -11,13 +11,51 @@ public class VideosController : ControllerBase
         _videoService = videoService;
     }
 
-    [HttpGet("{id}")]
-    public ActionResult<VideoPostDto> GetById(int id)
+    [HttpGet("WithDetails/{id}")]
+    public ActionResult<VideoDetailsDto> GetByIdWithDetails(int id)
     {
         var video = _videoService.GetByIdWithDetails(id);
 
         if (video is null)
-            return BadRequest($"Can not find {_entityName} with Id equal {id}");
+            return NotFound($"Can not find {_entityName} with Id equal {id}");
+
+        var videoDto = new VideoDetailsDto
+        {
+            Id = video.Id,
+            Name = video.Name,
+            Number = video.Number,
+            OrderIndex = video.OrderIndex,
+            Description = video.Description,
+            IsDeleted = video.IsDeleted,
+            DurationInMin = video.DurationInMin,
+            Section = new SectionDto
+            {
+                Id = video.Section!.Id,
+                Name = video.Section.Name,
+                Number = video.Section.Number,
+            },
+            Course = new LookupDto
+            {
+                Id = video.Section.Course!.Id,
+                Name = video.Section.Course.Name,
+            },
+            ReferenceLinks = video.ReferenceLinks.Select(r => new LookupDto() { Id = r.ReferenceLink!.Id, Name = r.ReferenceLink.WebsiteName }),
+            Topics = video.Topics.Select(t => new LookupDto() { Id = t.Topic!.Id, Name = t.Topic.Name }),
+            Packages = video.Packages.Select(p => new LookupDto() { Id = p.Package!.Id, Name = p.Package.Name }),
+            Libraries = video.Libraries.Select(l => new LookupDto() { Id = l.Library!.Id, Name = l.Library.Name }),
+            Languages = video.Languages.Select(l => new LookupDto() { Id = l.Language!.Id, Name = l.Language.Name })
+        };
+
+        return Ok(videoDto);
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<VideoPostDto> GetById(int id)
+    {
+        var video = _videoService.GetVideoById(id);
+
+        if (video is null)
+            return NotFound($"Can not find {_entityName} with Id equal {id}");
 
         return Ok(MapToDto(video));
     }
@@ -52,7 +90,7 @@ public class VideosController : ControllerBase
         var video = _videoService.GetVideoById(id);
 
         if (video is null)
-            return BadRequest($"Can not find {_entityName} with Id equal {id}");
+            return NotFound($"Can not find {_entityName} with Id equal {id}");
 
         video.Name = videoDto.Name;
         video.Number = videoDto.Number;
@@ -77,7 +115,7 @@ public class VideosController : ControllerBase
         var video = _videoService.GetById(id);
 
         if (video is null)
-            return BadRequest($"Can not find {_entityName} with this Id");
+            return NotFound($"Can not find {_entityName} with this Id");
 
         video.IsDeleted = !video.IsDeleted;
 

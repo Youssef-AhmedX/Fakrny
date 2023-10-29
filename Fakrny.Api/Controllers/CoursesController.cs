@@ -44,7 +44,7 @@ public class CoursesController : ControllerBase
         var course = _courseService.GetByIdWithDetails(id);
 
         if (course is null)
-            return BadRequest($"Can not find {_entityName} with Id equal {id}");
+            return NotFound($"Can not find {_entityName} with Id equal {id}");
 
         var CourseDto = new CourseDetailsDto
         {
@@ -79,7 +79,7 @@ public class CoursesController : ControllerBase
         var course = _courseService.GetById(id);
 
         if (course is null)
-            return BadRequest($"Can not find {_entityName} with Id equal {id}");
+            return NotFound($"Can not find {_entityName} with Id equal {id}");
 
         return Ok(MapToDto(course));
     }
@@ -107,7 +107,7 @@ public class CoursesController : ControllerBase
         var course = _courseService.GetById(id);
 
         if (course is null)
-            return BadRequest($"Can not find {_entityName} with Id equal {id}");
+            return NotFound($"Can not find {_entityName} with Id equal {id}");
 
         course.Name = courseDto.Name;
         course.Description = courseDto.Description;
@@ -126,7 +126,7 @@ public class CoursesController : ControllerBase
         var course = _courseService.GetById(id);
 
         if (course is null)
-            return BadRequest($"Can not find {_entityName} with this Id");
+            return NotFound($"Can not find {_entityName} with this Id");
 
         course.IsDeleted = !course.IsDeleted;
 

@@ -22,7 +22,7 @@
     <RowTemplate>
         <MudTd DataLabel="Name">@($"{context.Number}. {@context.Name}")</MudTd>
             <MudTd Style="text-align:center" DataLabel="Duration">@HandelDuration(context.DurationInMin)</MudTd>
-            <MudTd Style="text-align:center" DataLabel="Order Index">@context.OrderIndex</MudTd>
+            <MudTd Style="text-align:center" DataLabel="Order Index">@(context.OrderIndex is null ? string.Empty : $"#{context.OrderIndex}")</MudTd>
             <MudTd Style="text-align:center" DataLabel="Status">
                 <MudChip Size="Size.Small"
                      Icon="@(context.IsDeleted? Icons.Material.Filled.Cancel : Icons.Material.Outlined.Check)"

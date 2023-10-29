@@ -15,39 +15,43 @@ public partial class VideoForm
 
     protected override async Task OnParametersSetAsync()
     {
-        StartProcessing();
-
         if (Id == 0)
             videoForm = new();
         else
             videoForm = await GetByIdAsync($"Videos/{Id}");
 
-        topics = await GetAllLookupsAsync<LookupDto>($"Topics");
-        packages = await GetAllLookupsAsync<LookupDto>($"Packages");
-        libraries = await GetAllLookupsAsync<LookupDto>($"Libraries");
-        languages = await GetAllLookupsAsync<LookupDto>($"Languages");
-        referenceLinks = await GetAllLookupsAsync<ReferenceLinkDto>($"ReferenceLinks");
+        await CallLookups();
+    }
 
-        StopProcessing();
+    private async Task CallLookups()
+    {
+        var topicsTask = GetAllLookupsAsync<LookupDto>("Topics");
+        var packagesTask = GetAllLookupsAsync<LookupDto>("Packages");
+        var librariesTask = GetAllLookupsAsync<LookupDto>("Libraries");
+        var languagesTask = GetAllLookupsAsync<LookupDto>("Languages");
+        var referenceLinksTask = GetAllLookupsAsync<ReferenceLinkDto>("ReferenceLinks");
+
+        await Task.WhenAll(topicsTask, packagesTask, librariesTask, languagesTask, referenceLinksTask);
+
+        topics = await topicsTask;
+        packages = await packagesTask;
+        libraries = await librariesTask;
+        languages = await languagesTask;
+        referenceLinks = await referenceLinksTask;
     }
 
     private async Task OnValidSubmit(EditContext context)
     {
         StartProcessing();
-
         bool result;
         VideoPostDto? videoDtoResult;
-
         videoForm!.SectionId = (int)SectionId!;
-
         if (Id == 0)
             (result, videoDtoResult) = await AddAsync("Videos/Add", videoForm!);
         else
             (result, videoDtoResult) = await UpdateAsync($"Videos/Update/{Id}", videoForm!);
-
         if (result)
         {
-
             VideoDetailsDto videoDto = new()
             {
                 Id = videoDtoResult!.Id,
@@ -58,10 +62,8 @@ public partial class VideoForm
                 Description = videoDtoResult!.Description,
                 IsDeleted = videoDtoResult!.IsDeleted,
             };
-
             MudDialog.Close(DialogResult.Ok(videoDto));
         }
-
         StopProcessing();
     }
 

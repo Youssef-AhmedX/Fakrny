@@ -14,7 +14,7 @@
                     <MudCardContent Style="padding-top: 0px">
                         <div class="gap-4 d-flex mb-5">
                             <MudTextField Class="w-50" HelperText="Required" Variant="Variant.Outlined" @bind-Value="sectionForm.Name" For="@(() => sectionForm.Name)" />
-                            <MudTextField HelperText="Required" Variant="Variant.Outlined" @bind-Value="sectionForm.Number" For="@(() => sectionForm.Number)" />
+                            <MudNumericField HideSpinButtons="true" HelperText="Required" Variant="Variant.Outlined" @bind-Value="sectionForm.Number" For="@(() => sectionForm.Number)" />
                             <MudNumericField HideSpinButtons="true" HelperText="Not Required" @bind-Value="sectionForm.OrderIndex" For="@(() => sectionForm.OrderIndex)"
                                          Variant="Variant.Outlined" AdornmentColor="Color.Info" Adornment="Adornment.End" AdornmentText="#" />
                         </div>

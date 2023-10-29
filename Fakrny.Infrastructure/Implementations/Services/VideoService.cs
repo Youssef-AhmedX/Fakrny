@@ -24,8 +24,8 @@ public class VideoService : BaseService<Video>, IVideoService
                 Description = v.Description,
                 Section = new Section
                 {
-                    Id = v.Id,
-                    Name = v.Section!.Name,
+                    Id = v.Section!.Id,
+                    Name = v.Section.Name,
                     Number = v.Section.Number,
                     Course = new Course
                     {

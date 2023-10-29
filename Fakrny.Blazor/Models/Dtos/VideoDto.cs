@@ -4,7 +4,7 @@ public class VideoDto : BaseDto
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;
-    public string Number { get; set; } = null!;
+    public int Number { get; set; }
     public int DurationInMin { get; set; }
     public int? OrderIndex { get; set; }
 }
@@ -29,7 +29,7 @@ public class VideoPostDto : BaseDto
     public string Name { get; set; } = null!;
     [Required]
     [Label("Video Number")]
-    public string Number { get; set; } = null!;
+    public int Number { get; set; }
     [Label("Video Index")]
     public int? OrderIndex { get; set; }
     [Required]

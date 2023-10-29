@@ -1,0 +1,88 @@
+﻿@inherits BasePage<VideoDetailsDto>
+@page "/Videos/Details/{Id:int}"
+
+<PageTitle>Videos</PageTitle>
+<MudBreadcrumbs Items="breadcrumbItems"></MudBreadcrumbs>
+
+@if (videoDto is null)
+{
+    <DetailsSkeleton />
+}
+else
+{
+    <MudCard Elevation="25">
+        <MudCardHeader Style="padding:20px">
+            <CardHeaderAvatar>
+                <MudAvatar Size="Size.Large" Rounded="true" Color="Color.Info">
+                    <MudIcon Icon="@Icons.Material.Filled.VideoLibrary" />
+                </MudAvatar>
+            </CardHeaderAvatar>
+            <CardHeaderContent>
+                <MudText Style="display: flex;align-items: center;" Typo="Typo.h5">
+                    @($"{videoDto.Number}. {videoDto.Name}")
+                </MudText>
+                <MudChip Variant="Variant.Text" Size="Size.Small" Icon="@Icons.Material.Filled.OndemandVideo" Color="Color.Info">@videoDto.Course.Name</MudChip>
+                <MudChip Variant="Variant.Text" Size="Size.Small" Icon="@Icons.Material.Filled.GridView" Color="Color.Info">@videoDto.Section.Name</MudChip>
+                <MudChip Variant="Variant.Text" Size="Size.Small" Icon="@Icons.Material.Outlined.Timer" Color="Color.Info">@HandelDuration(videoDto.DurationInMin)</MudChip>
+                @if (videoDto.OrderIndex is not null)
+                {
+                    <MudChip Variant="Variant.Text" Size="Size.Small" Icon="@Icons.Material.Outlined.Sort" Color="Color.Info">#@videoDto.OrderIndex</MudChip>
+                }
+                <MudChip Variant="Variant.Text" Size="Size.Small"
+                     Icon="@(videoDto.IsDeleted? Icons.Material.Filled.Cancel : Icons.Material.Outlined.Check)"
+                     Color="@(videoDto.IsDeleted? Color.Error : Color.Success)">
+
+                    @(videoDto.IsDeleted ? "Deleted" : "Avaliable")
+                </MudChip>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudButton OnClick="() => OpenForm(videoDto.Id)" Style="margin:10px" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Edit" Color="Color.Info">
+                    Edit
+                </MudButton>
+            </CardHeaderActions>
+        </MudCardHeader>
+    </MudCard>
+
+    <MudTabs SliderColor="Color.Info" Class="mt-5" Elevation="25" Rounded="true" ApplyEffectsToContainer=true PanelClass="bg-white px-6 pb-6 pt-0">
+        <MudTabPanel Icon="@Icons.Material.Filled.Info" Text="More Info">
+            <MudText Class="mb-1 mt-6" Typo="Typo.h6">Description:</MudText>
+            <MudPaper Style="max-height:300px;overflow:scroll;border:0" Outlined="true">
+                <MudText Class="mb-2 m-3 text-secondary" Typo="Typo.body2">@videoDto.Description</MudText>
+            </MudPaper>
+        </MudTabPanel>
+        <MudTabPanel Icon="@Icons.Material.Filled.Dataset" Text="Related Data">
+            <MudExpansionPanels Class="my-6" Elevation="0" MultiExpansion="true">
+                <MudExpansionPanel Disabled="!videoDto.Languages.Any()" Text="Languages">
+                    @foreach (var item in videoDto.Languages)
+                    {
+                        <MudChip Variant="Variant.Text" Color="Color.Info">@item.Name</MudChip>
+                    }                
+                </MudExpansionPanel>
+                <MudExpansionPanel Disabled="!videoDto.Packages.Any()" Text="Packages">
+                    @foreach (var item in videoDto.Packages)
+                    {
+                        <MudChip Variant="Variant.Text" Color="Color.Info">@item.Name</MudChip>
+                    }
+                </MudExpansionPanel>
+                <MudExpansionPanel Disabled="!videoDto.Libraries.Any()" Text="Libraries">
+                    @foreach (var item in videoDto.Libraries)
+                    {
+                        <MudChip Variant="Variant.Text" Color="Color.Info">@item.Name</MudChip>
+                    }
+                </MudExpansionPanel>
+                <MudExpansionPanel Disabled="!videoDto.Topics.Any()" Text="Topics">
+                    @foreach (var item in videoDto.Topics)
+                    {
+                        <MudChip Variant="Variant.Text" Color="Color.Info">@item.Name</MudChip>
+                    }
+                </MudExpansionPanel>
+                <MudExpansionPanel Disabled="!videoDto.ReferenceLinks.Any()" Text="Reference Links">
+                    @foreach (var item in videoDto.ReferenceLinks)
+                    {
+                        <MudChip Variant="Variant.Text" Color="Color.Info">@item.Name</MudChip>
+                    }
+                </MudExpansionPanel>
+            </MudExpansionPanels>
+        </MudTabPanel>
+    </MudTabs>
+}
